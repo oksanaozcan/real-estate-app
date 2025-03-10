@@ -1,10 +1,13 @@
 <?php
 
+use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', function () {
-    return view ('app');
+    return Inertia::render('Home', [
+        'user' => auth()->user(),
+    ]);
 });
 
 Route::middleware([AdminMiddleware::class, 'auth:sanctum'])->group(function () {
