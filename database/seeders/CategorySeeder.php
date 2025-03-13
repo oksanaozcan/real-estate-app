@@ -13,7 +13,8 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::firstOrCreate(['slug' => 'residential']);
+        Category::firstOrCreate(['slug' => 'detached-house']);
+        Category::firstOrCreate(['slug' => 'apartment-flat']);
         Category::firstOrCreate(['slug' => 'commercial']);
         Category::firstOrCreate(['slug' => 'land&lots']);
         Category::firstOrCreate(['slug' => 'rentals']);

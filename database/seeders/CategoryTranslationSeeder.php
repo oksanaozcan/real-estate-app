@@ -13,19 +13,23 @@ class CategoryTranslationSeeder extends Seeder
      */
     public function run(): void
     {
-        // Define translations for each category slug
         $translations = [
-            'residential' => [
-                'en' => 'Residential',
-                'tr' => 'Konut',
-                'ru' => 'Жильё'
+            'detached-house' => [
+                'en' => 'Detached house',
+                'tr' => 'Müstakil ev',
+                'ru' => 'Отдельный дом'
+            ],
+            'apartment-flat' => [
+                'en' => 'Apartment/Flat',
+                'tr' => 'Daire',
+                'ru' => 'Квартира'
             ],
             'commercial' => [
                 'en' => 'Commercial',
                 'tr' => 'İş yeri',
                 'ru' => 'Коммерческая недвижимость'
             ],
-            'land&lots' => [ // Keeping slug consistent with your `CategorySeeder`
+            'land&lots' => [
                 'en' => 'Land & Lots',
                 'tr' => 'Arsa',
                 'ru' => 'Земельный участок'
