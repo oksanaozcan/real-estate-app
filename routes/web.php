@@ -7,8 +7,24 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Middleware\AdminMiddleware;
 use App\Models\Property;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use App\Http\Controllers\PropertyController;
+
+Route::resource('properties', PropertyController::class);
 
 Route::get('/lang/{locale}', [TranslationController::class, 'changeLanguage'])->name('language.change');
+
+Route::post('/user/language', function (Request $request) {
+    $request->validate([
+        'language' => 'required|in:en,tr,ru',
+    ]);
+
+    $user = Auth::user();
+    $user->update(['preferred_language' => $request->language]);
+
+    return back();
+})->middleware(['auth']);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -19,9 +35,17 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
+Route::get('/dashboard', function (Request $request) {
+    $user = Auth::user();
+    $locale = $user->preferred_language ?? 'tr';
+
+    $properties = Property::with(['translations' => function ($query) use ($locale) {
+        $query->where('locale', $locale);
+    }])->get();
+
     return Inertia::render('Dashboard', [
-        'properties' => Property::with('translations')->get(),
+        'properties' => $properties,
+        'user_language' => $locale,
     ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 

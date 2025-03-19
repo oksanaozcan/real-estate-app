@@ -1,8 +1,9 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import Backend from "i18next-http-backend";
+import Cookies from 'js-cookie';
 
-const storedLang = localStorage.getItem('lang') || 'tr';
+const storedLang = Cookies.get('lang') || 'tr';
 
 i18n
   .use(Backend)

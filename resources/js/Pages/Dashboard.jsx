@@ -1,8 +1,11 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
+import { usePage } from '@inertiajs/react';
 
-export default function Dashboard({ properties }) {
+export default function Dashboard() {
+    const { properties } = usePage().props;
+
     const { t } = useTranslation();
     return (
         <AuthenticatedLayout

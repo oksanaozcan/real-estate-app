@@ -1,9 +1,13 @@
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import BackgroundSVG from '@/Components/BackgroungSVG';
+import LanguageSwitcher from '@/Components/LanguageSwitcher';
 import ThemeToggle from '@/Components/ThemeToggle';
 import { Head, Link } from '@inertiajs/react';
+import { useTranslation } from 'react-i18next';
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
+    const { t } = useTranslation();
+
     const handleImageError = () => {
         document
             .getElementById('screenshot-container')
@@ -56,6 +60,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
 
                         <main className="mt-6">
                             <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
+                            <LanguageSwitcher/>
                                 <a
                                     href="https://laravel.com/docs"
                                     id="docs-card"
@@ -103,6 +108,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                             </div>
 
                                             <div className="pt-3 sm:pt-5 lg:pt-0">
+                                                <h1>{t('welcome')}</h1>
                                                 <h2 className="text-xl font-semibold text-black dark:text-white">
                                                     Documentation
                                                 </h2>
