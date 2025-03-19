@@ -6,6 +6,8 @@ import { usePage } from '@inertiajs/react';
 export default function Dashboard() {
     const { properties } = usePage().props;
 
+    console.log(properties)
+
     const { t } = useTranslation();
     return (
         <AuthenticatedLayout
@@ -32,10 +34,10 @@ export default function Dashboard() {
                                 </thead>
                                 <tbody>
                                     {
-                                        properties.map(p => (
+                                        properties.data.map(p => (
                                             <tr key={p.id}>
-                                                <td>{p.translations[0].title}</td>
-                                                <td>{p.translations[0].description}</td>
+                                                <td>{p.translations.title}</td>
+                                                <td>{p.translations.description}</td>
                                                 <td>{p.price}</td>
                                                 <td>{p.address}</td>
                                             </tr>

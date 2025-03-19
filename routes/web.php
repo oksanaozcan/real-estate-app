@@ -10,6 +10,7 @@ use App\Models\Property;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\DashboardController;
 
 Route::resource('properties', PropertyController::class);
 
@@ -35,19 +36,9 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function (Request $request) {
-    $user = Auth::user();
-    $locale = $user->preferred_language ?? 'tr';
-
-    $properties = Property::with(['translations' => function ($query) use ($locale) {
-        $query->where('locale', $locale);
-    }])->get();
-
-    return Inertia::render('Dashboard', [
-        'properties' => $properties,
-        'user_language' => $locale,
-    ]);
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
