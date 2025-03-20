@@ -1,8 +1,6 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
 import BackgroundSVG from '@/Components/BackgroungSVG';
-import LanguageSwitcher from '@/Components/LanguageSwitcher';
-import ThemeToggle from '@/Components/ThemeToggle';
-import { Head, Link } from '@inertiajs/react';
+import Header from '@/Components/Header/Header';
+import { Head } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
@@ -25,44 +23,12 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                 <meta name="description" content="Didim'de güvenilir emlak danışmanınız! Satılık ve kiralık daireler, villalar ve arsalar için profesyonel hizmet. Hayalinizdeki mülke ulaşın!" />
             </Head>
             <div className="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-            <BackgroundSVG className="absolute -left-20 top-0 max-w-[877px]" />
+                <BackgroundSVG className="absolute -left-20 top-0 max-w-[877px]" />
                 <div className="relative flex min-h-screen flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
                     <div className="relative w-full max-w-2xl px-6 lg:max-w-7xl">
-                        <header className="grid items-center grid-cols-2 gap-2 py-10 lg:grid-cols-3">
-                            <div className="flex lg:col-start-2 lg:justify-center">
-                                <ApplicationLogo className="h-12 w-auto text-white lg:h-16 lg:text-[#2075ff] fill-current"/>
-                            </div>
-                            <nav className="flex justify-end flex-1 -mx-3">
-                                {auth.user ? (
-                                    <Link
-                                        href={route('dashboard')}
-                                        className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                    >
-                                        Dashboard
-                                    </Link>
-                                ) : (
-                                    <>
-                                        <Link
-                                            href={route('login')}
-                                            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                        >
-                                            Log in
-                                        </Link>
-                                        <Link
-                                            href={route('register')}
-                                            className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                        >
-                                            Register
-                                        </Link>
-                                    </>
-                                )}
-                                <ThemeToggle/>
-                            </nav>
-                        </header>
-
+                        <Header auth={auth}/>
                         <main className="mt-6">
                             <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
-                            <LanguageSwitcher/>
                                 <a
                                     href="https://laravel.com/docs"
                                     id="docs-card"
@@ -349,7 +315,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         </main>
 
                         <footer className="py-16 text-sm text-center text-black dark:text-white/70">
-                            Laravel v{laravelVersion} (PHP v{phpVersion})
+                            Laravel footer
                         </footer>
                     </div>
                 </div>

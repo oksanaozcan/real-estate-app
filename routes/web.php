@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PageController;
+
+Route::get('/', [PageController::class, 'welcome'])->name('home');
+Route::get('/about', [PageController::class, 'about'])->name('about');
+Route::get('/relocate', [PageController::class, 'relocate'])->name('relocate');
 
 Route::resource('properties', PropertyController::class);
 
@@ -26,15 +31,6 @@ Route::post('/user/language', function (Request $request) {
 
     return back();
 })->middleware(['auth']);
-
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])

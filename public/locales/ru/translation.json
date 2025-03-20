@@ -41,5 +41,9 @@
     "forgot_your_password": "Забыли пароль?",
     "log_in": "Войти",
     "email": "Электронная почта",
-    "confirm_password": "Подтвердите пароль"
+    "confirm_password": "Подтвердите пароль",
+    "search": "Поиск",
+    "relocate": "Переезд",
+    "register": "Регистрация",
+    "dashboard": "Панель управления"
 }

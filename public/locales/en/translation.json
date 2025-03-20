@@ -41,6 +41,9 @@
     "forgot_your_password": "Forgot your password?",
     "log_in": "Log in",
     "email": "Email",
-    "confirm_password": "Confirm Password"
-
+    "confirm_password": "Confirm Password",
+    "search": "Search",
+    "relocate": "Relocate",
+    "register": "Register",
+    "dashboard": "Dashboard"
 }

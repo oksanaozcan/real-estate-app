@@ -1,11 +1,11 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
+import ApplicationLogo from '@/Components/Header/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import LanguageSwitcher from '@/Components/LanguageSwitcher';
+import LanguageSwitcher from '@/Components/Header/LanguageSwitcher';
 
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
@@ -32,14 +32,9 @@ export default function AuthenticatedLayout({ header, children }) {
                                     href={route('dashboard')}
                                     active={route().current('dashboard')}
                                 >
-                                    Dashboard
+                                    Dashboard big
                                 </NavLink>
                             </div>
-                        </div>
-
-                        <div>
-                            <LanguageSwitcher />
-                            <h1>{t('welcome')}</h1>
                         </div>
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
@@ -141,7 +136,7 @@ export default function AuthenticatedLayout({ header, children }) {
                             href={route('dashboard')}
                             active={route().current('dashboard')}
                         >
-                            Dashboard
+                            Dashboard small
                         </ResponsiveNavLink>
                     </div>
 
