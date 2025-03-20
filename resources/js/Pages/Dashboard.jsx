@@ -6,8 +6,6 @@ import { usePage } from '@inertiajs/react';
 export default function Dashboard() {
     const { properties } = usePage().props;
 
-    console.log(properties)
-
     const { t } = useTranslation();
     return (
         <AuthenticatedLayout

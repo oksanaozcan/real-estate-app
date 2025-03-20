@@ -29,5 +29,17 @@
     "site_dues": "Платежи в жил. комплекс",
     "credit_eligible": "Возможен кредит",
     "exchange_possibility": "Возможен обмен",
-    "description": "Описание"
+    "description": "Описание",
+
+    "this_is_a_secure_area_of_the_application_please_confirm_your_password_before_continuing": "Это защищенная область приложения. Пожалуйста, подтвердите свой пароль перед продолжением.",
+    "password": "Пароль",
+    "confirm": "Подтвердить",
+    "forgot_password": "Забыли пароль",
+    "forgot_your_password_no_problem": "Забыли свой пароль? Не проблема. Просто укажите свой адрес электронной почты, и мы отправим вам ссылку для сброса пароля, чтобы вы могли выбрать новый.",
+    "email_password_reset_link": "Отправить ссылку для сброса пароля",
+    "remember_me": "Запомнить меня",
+    "forgot_your_password": "Забыли пароль?",
+    "log_in": "Войти",
+    "email": "Электронная почта",
+    "confirm_password": "Подтвердите пароль"
 }

@@ -29,5 +29,17 @@
     "site_dues": "Aidat",
     "credit_eligible": "Krediye Uygun",
     "exchange_possibility": "Takas İmkanı",
-    "description": "Açıklama"
+    "description": "Açıklama",
+
+    "this_is_a_secure_area_of_the_application_please_confirm_your_password_before_continuing": "Bu, uygulamanın güvenli bir alanıdır. Devam etmeden önce lütfen şifrenizi onaylayın.",
+    "password": "Şifre",
+    "confirm": "Onayla",
+    "forgot_password": "Şifremi Unuttum",
+    "forgot_your_password_no_problem": "Şifrenizi mi unuttunuz? Sorun değil. Bize e-posta adresinizi bildirin, size yeni bir şifre seçmenize olanak tanıyacak bir şifre sıfırlama bağlantısı göndereceğiz.",
+    "email_password_reset_link": "Şifre Sıfırlama Bağlantısını Gönder",
+    "remember_me": "Beni hatırla",
+    "forgot_your_password": "Şifrenizi mi unuttunuz?",
+    "log_in": "Giriş yap",
+    "email": "e-posta",
+    "confirm_password": "Şifreyi Onayla"
 }
