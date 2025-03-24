@@ -39,11 +39,11 @@
     "email_password_reset_link": "Şifre Sıfırlama Bağlantısını Gönder",
     "remember_me": "Beni hatırla",
     "forgot_your_password": "Şifrenizi mi unuttunuz?",
-    "log_in": "Giriş",
+    "log_in": "Giriş yap",
     "email": "e-posta",
     "confirm_password": "Şifreyi Onayla",
-    "search": "Arama",
+    "search": "Ara",
     "relocate": "Taşınma",
-    "register": "Kayıt ol",
+    "register": "Hesap aç",
     "dashboard": "Kontrol Paneli"
 }

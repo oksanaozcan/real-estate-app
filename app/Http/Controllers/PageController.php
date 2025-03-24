@@ -15,14 +15,4 @@ class PageController extends Controller
             'canRegister' => Route::has('register'),
         ]);
     }
-
-    public function about()
-    {
-        return Inertia::render('About');
-    }
-
-    public function relocate()
-    {
-        return Inertia::render('Relocate');
-    }
 }

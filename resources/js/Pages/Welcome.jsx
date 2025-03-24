@@ -3,7 +3,7 @@ import Header from '@/Components/Header/Header';
 import { Head } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 
-export default function Welcome({ auth, laravelVersion, phpVersion }) {
+export default function Welcome({}) {
     const { t } = useTranslation();
 
     const handleImageError = () => {
@@ -26,7 +26,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                 <BackgroundSVG className="absolute -left-20 top-0 max-w-[877px]" />
                 <div className="relative flex min-h-screen flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
                     <div className="relative w-full max-w-2xl px-6 lg:max-w-7xl">
-                        <Header auth={auth}/>
+                        <Header/>
                         <main className="mt-6">
                             <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
                                 <a
