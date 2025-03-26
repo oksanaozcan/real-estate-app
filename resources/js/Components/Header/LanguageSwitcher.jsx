@@ -35,6 +35,8 @@ const LanguageSwitcher = () => {
 
         if (user) {
             await axios.post('/user/language', { language: lang });
+        } else {
+            
         }
 
         router.visit(page.url, {

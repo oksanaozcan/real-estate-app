@@ -9,13 +9,14 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Models\Property;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Http\Controllers\PropertyController;
+// use App\Http\Controllers\PropertyController; TODO: for admin
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PageController;
 
-Route::get('/', [PageController::class, 'welcome'])->name('home');
-
-Route::resource('properties', PropertyController::class);
+Route::controller(PageController::class)->group(function () {
+    Route::get('/', 'welcome')->name('home');
+    Route::get('properties', 'properties')->name('properties');
+});
 
 Route::get('/lang/{locale}', [TranslationController::class, 'changeLanguage'])->name('language.change');
 
@@ -43,6 +44,8 @@ Route::middleware('auth')->group(function () {
 Route::get('/admin', function () {
     return Inertia::render('Admin/Test');
 })->middleware(['auth', 'verified', AdminMiddleware::class])->name('test');
+
+// Route::resource('properties', PropertyController::class); TODO: for admin
 
 
 require __DIR__.'/auth.php';
