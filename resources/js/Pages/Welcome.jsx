@@ -9,8 +9,11 @@ import { IoStorefront } from "react-icons/io5";
 import { GrMapLocation } from "react-icons/gr";
 import { GiHouseKeys } from "react-icons/gi";
 import Footer from '@/Components/Footer';
+import { usePage } from '@inertiajs/react';
+import { Separator } from '@/Components/ui/separator';
 
 export default function Welcome({ }) {
+    const { properties } = usePage().props;
     const { t } = useTranslation();
 
     return (
@@ -25,6 +28,17 @@ export default function Welcome({ }) {
                         <Header />
                         <main className="mt-6">
                             <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
+                                <div>
+                                    {
+                                        properties.data.map(item => (
+                                            <div key={item.id}>
+                                                <div>{item.translations.title}</div>
+                                                <div>{item.translations.description}</div>
+                                                <Separator />
+                                            </div>
+                                        ))
+                                    }
+                                </div>
                                 <div className="relative flex flex-col items-start gap-6 overflow-hidden rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#FF2D20] md:row-span-3 lg:p-10 lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#FF2D20]">
 
                                     <div className="absolute inset-0 bg-[url('/images/altinkum.jpg')] bg-cover bg-center bg-no-repeat">
@@ -42,7 +56,7 @@ export default function Welcome({ }) {
                                         <div>
                                             <Link
                                                 className='inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-800 border border-transparent rounded-none hover:bg-gray-700 focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900'
-                                            href={route('properties')}>View All property</Link>
+                                                href={route('properties')}>View All property</Link>
                                         </div>
                                     </div>
 
@@ -130,7 +144,7 @@ export default function Welcome({ }) {
                             </div>
                         </main>
 
-                       <Footer/>
+                        <Footer />
                     </div>
                 </div>
             </div>

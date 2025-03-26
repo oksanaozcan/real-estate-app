@@ -10,22 +10,33 @@ use App\Models\Property;
 use App\Http\Resources\PropertyResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\App;
 
 class PageController extends Controller
 {
-    public function welcome()
+    public function welcome(Request $request)
     {
-        return Inertia::render('Welcome');
+        $user = Auth::user();
+        $locale = $user ? ($user->preferred_language ?? 'tr') : $request->cookie('lang', 'tr');
+
+        App::setLocale($locale);
+
+        $properties = Property::with(['translations' => function ($query) use ($locale) {
+            $query->where('locale', $locale);
+        }])->get();
+
+        return Inertia::render('Welcome', [
+            'properties' => PropertyResource::collection($properties),
+            'user_language' => $locale,
+        ]);
     }
 
     public function properties(Request $request)
     {
         $user = Auth::user();
-        if ($user) {
-            $locale = $user->preferred_language ?? 'tr';
-        } else {
-            $locale = $request->cookie('lang', 'tr');
-        }
+        $locale = $user ? ($user->preferred_language ?? 'tr') : $request->cookie('lang', 'tr');
+
+        App::setLocale($locale);
 
         $properties = Property::with(['translations' => function ($query) use ($locale) {
             $query->where('locale', $locale);
@@ -33,6 +44,7 @@ class PageController extends Controller
 
         return Inertia::render('Properties', [
             'properties' => PropertyResource::collection($properties),
+            'user_language' => $locale,
         ]);
     }
 }

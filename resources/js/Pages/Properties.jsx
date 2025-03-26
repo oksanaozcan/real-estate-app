@@ -7,9 +7,10 @@ import { Separator } from '@/Components/ui/separator';
 import { usePage } from '@inertiajs/react';
 
 export default function Properties() {
-     const { properties } = usePage().props;
+    const { properties } = usePage().props;
+    const { user_language } = usePage().props;
     const { t } = useTranslation();
-    console.log(properties)
+    console.log(user_language)
 
     return (
         <>
@@ -25,14 +26,14 @@ export default function Properties() {
                             {
                                 properties.data.map(item => (
                                     <div key={item.id}>
-                                    <div>{item.translations.title}</div>
-                                    <div>{item.translations.description}</div>
-                                    <Separator/>
+                                        <div>{item.translations.title}</div>
+                                        <div>{item.translations.description}</div>
+                                        <Separator />
                                     </div>
                                 ))
                             }
                         </main>
-                       <Footer/>
+                        <Footer />
                     </div>
                 </div>
             </div>
