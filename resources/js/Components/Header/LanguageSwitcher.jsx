@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { usePage, router } from '@inertiajs/react';
 import axios from "axios";
@@ -11,16 +11,24 @@ import {
 } from "@/Components/ui/select";
 
 const languages = {
-    tr: { label: "Türkçe", flag: <img src="/flags/turkey.svg" alt="Turkish Flag" width="24" height="24" />},
-    en: { label: "English", flag: <img src="/flags/great-britain.svg" alt="Great Britain Flag" width="24" height="24" />},
-    ru: { label: "Русский", flag: <img src="/flags/russia.svg" alt="Russian Flag" width="24" height="24" />},
+    tr: { label: "Türkçe", flag: <img src="/flags/turkey.svg" alt="Turkish Flag" width="24" height="24" /> },
+    en: { label: "English", flag: <img src="/flags/great-britain.svg" alt="Great Britain Flag" width="24" height="24" /> },
+    ru: { label: "Русский", flag: <img src="/flags/russia.svg" alt="Russian Flag" width="24" height="24" /> },
 };
 
 const LanguageSwitcher = () => {
+    const { locale } = usePage().props;
     const user = usePage().props.auth?.user;
     const page = usePage();
 
-    const [currentLang, setCurrentLang] = useState(Cookies.get('lang') || "tr");
+    const [currentLang, setCurrentLang] = useState(() => Cookies.get('lang') || locale || "tr");
+
+    useEffect(() => {
+        if (locale && locale !== currentLang) {
+            setCurrentLang(locale);
+            Cookies.set('lang', locale, { expires: 30 });
+        }
+    }, [locale]);
 
     const changeLanguage = async (lang) => {
         setCurrentLang(lang);
@@ -45,7 +53,7 @@ const LanguageSwitcher = () => {
             <Select onValueChange={changeLanguage} value={currentLang}>
                 <SelectTrigger className="w-[70px]">
                     <SelectValue>
-                        {languages[currentLang].flag}
+                        {languages[currentLang]?.flag}
                     </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
@@ -61,3 +69,4 @@ const LanguageSwitcher = () => {
 };
 
 export default LanguageSwitcher;
+

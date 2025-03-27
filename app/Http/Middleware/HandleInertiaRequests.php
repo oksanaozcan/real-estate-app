@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Cookie;
 use App\Models\StaticText;
 
 class HandleInertiaRequests extends Middleware
@@ -32,15 +32,14 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        $locale = $request->header('X-Locale', App::getLocale());
+        $locale = $request->cookie('lang', $request->header('X-Locale', config('app.locale')));
+
         App::setLocale($locale);
 
         $staticText = StaticText::with(['translations' => function ($query) use ($locale) {
             $query->where('locale', $locale);
         }])->get()->mapWithKeys(function ($text) {
-            return [
-                $text->key => $text->translations->first()?->value
-            ];
+            return [$text->key => $text->translations->first()?->value ?? ''];
         });
 
         return [

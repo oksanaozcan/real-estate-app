@@ -18,7 +18,7 @@ class TranslationController extends Controller
         session(['locale' => $locale]);
         App::setLocale($locale);
 
-        $cookie = Cookie::make('lang', $locale, 43200);
+        $cookie = cookie('lang', $locale, 43200);
 
         if (Auth::check()) {
             $user = Auth::user();

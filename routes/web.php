@@ -28,7 +28,7 @@ Route::post('/user/language', function (Request $request) {
     $user = Auth::user();
     $user->update(['preferred_language' => $request->language]);
 
-    return back();
+    return back()->withCookie(cookie('lang', $request->language, 43200));
 })->middleware(['auth']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
