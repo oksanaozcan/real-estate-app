@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Cookies from 'js-cookie';
-import { useTranslation } from 'react-i18next';
 import { usePage, router } from '@inertiajs/react';
 import axios from "axios";
 import {
@@ -18,19 +17,13 @@ const languages = {
 };
 
 const LanguageSwitcher = () => {
-    const { i18n } = useTranslation();
     const user = usePage().props.auth?.user;
     const page = usePage();
 
     const [currentLang, setCurrentLang] = useState(Cookies.get('lang') || "tr");
 
-    useEffect(() => {
-        i18n.changeLanguage(currentLang);
-    }, [currentLang, i18n]);
-
     const changeLanguage = async (lang) => {
         setCurrentLang(lang);
-        i18n.changeLanguage(lang);
         Cookies.set('lang', lang, { expires: 30 });
 
         if (user) {
@@ -39,8 +32,9 @@ const LanguageSwitcher = () => {
             await axios.get(`/lang/${lang}`);
         }
 
+        axios.defaults.headers.common['X-Locale'] = lang;
         router.visit(page.url, {
-            only: ['properties'],
+            only: ['properties', 'static_text'],
             preserveScroll: true,
             preserveState: true,
         });

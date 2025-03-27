@@ -2,7 +2,6 @@ import { useState } from "react";
 import ApplicationLogo from '@/Components/Header/ApplicationLogo';
 import { Link } from '@inertiajs/react';
 import { Divide as Hamburger } from 'hamburger-react';
-import { useTranslation } from 'react-i18next';
 import { usePage } from '@inertiajs/react'
 import LanguageSwitcher from '@/Components/Header/LanguageSwitcher';
 import ThemeToggle from '@/Components/Header/ThemeToggle';
@@ -15,8 +14,7 @@ import {
 export default function Header({ }) {
     const [isOpen, setIsOpen] = useState(false);
 
-    const { t } = useTranslation();
-    const { auth } = usePage().props
+    const { auth, static_text } = usePage().props;
 
     return (
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -30,15 +28,15 @@ export default function Header({ }) {
                 <div className="justify-end hidden space-x-8 sm:flex sm:-my-px">
                     <nav className="justify-end flex-1 hidden -mx-3 sm:flex">
                         <SheetTrigger className="nav-link">
-                            {t('search')}
+                            {static_text.search}
                         </SheetTrigger>
 
                         {auth.user ? (
-                            <Link href={route('dashboard')} className="nav-link">{t('dashboard')}</Link>
+                            <Link href={route('dashboard')} className="nav-link">{static_text.dashboard}</Link>
                         ) : (
                             <>
-                                <Link href={route('login')} className="nav-link">{t('log_in')}</Link>
-                                <Link href={route('register')} className="nav-link">{t('register')}</Link>
+                                <Link href={route('login')} className="nav-link">{static_text.log_in}</Link>
+                                <Link href={route('register')} className="nav-link">{static_text.register}</Link>
                             </>
                         )}
                         <div className='nav-link'><LanguageSwitcher /></div>

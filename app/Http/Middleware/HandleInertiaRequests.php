@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
+use App\Models\StaticText;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -31,16 +32,24 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $locale = $request->header('X-Locale', App::getLocale());
+        App::setLocale($locale);
+
+        $staticText = StaticText::with(['translations' => function ($query) use ($locale) {
+            $query->where('locale', $locale);
+        }])->get()->mapWithKeys(function ($text) {
+            return [
+                $text->key => $text->translations->first()?->value
+            ];
+        });
+
         return [
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
             ],
-            'locale' => App::getLocale(),
-            // 'translations' => function () {
-            //     $locale = App::getLocale();
-            //     return json_decode(file_get_contents(resource_path("lang/{$locale}.json")), true);
-            // },
+            'locale' => $locale,
+            'static_text' => $staticText,
         ];
     }
 }

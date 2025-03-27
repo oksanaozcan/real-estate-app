@@ -13,22 +13,20 @@ import { GrFormNextLink } from "react-icons/gr";
 import LanguageSwitcher from '@/Components/Header/LanguageSwitcher';
 import ThemeToggle from '@/Components/Header/ThemeToggle';
 import { usePage } from '@inertiajs/react'
-import { useTranslation } from 'react-i18next';
 
 export default function SearchSheet({ }) {
-    const { auth } = usePage().props
-    const { t } = useTranslation();
+    const { auth, static_text } = usePage().props;
     return (
         <>
             <SheetContent>
                 <SheetHeader>
-                    <SheetTitle className="pb-4 text-center">{t('search')}</SheetTitle>
+                    <SheetTitle className="pb-4 text-center">{static_text.search}</SheetTitle>
                 </SheetHeader>
 
-                <TextInput className="w-full" placeholder={t('city_address_district')} />
+                <TextInput className="w-full" placeholder={static_text.city_address_district} />
                 <PrimaryButton className="flex items-center justify-center my-4">
                     <CiSearch className="mr-2" size={18} />
-                    {t('search')}
+                    {static_text.search}
                 </PrimaryButton>
                 <Separator className="my-3" />
                 <div>
@@ -36,16 +34,16 @@ export default function SearchSheet({ }) {
                 </div>
                 <Separator className="my-3" />
                 {auth.user ? (
-                    <ResponsiveNavLink href={route('dashboard')}>{t('dashboard')}</ResponsiveNavLink>
+                    <ResponsiveNavLink href={route('dashboard')}>{static_text.dashboard}</ResponsiveNavLink>
                 ) : (
                     <>
-                        <ResponsiveNavLink href={route('login')}>{t('log_in')}</ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('register')}>{t('register')}</ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('login')}>{static_text.log_in}</ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('register')}>{static_text.register}</ResponsiveNavLink>
                     </>
                 )}
                 <Separator className="my-3" />
                 <PrimaryButton className="flex items-center justify-center my-4">
-                    {t('contact')}
+                    {static_text.contact}
                 </PrimaryButton>
 
                 <SheetFooter>

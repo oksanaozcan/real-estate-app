@@ -1,7 +1,6 @@
 import BackgroundSVG from '@/Components/BackgroungSVG';
 import Header from '@/Components/Header/Header';
 import { Head, Link } from '@inertiajs/react';
-import { useTranslation } from 'react-i18next';
 import { HiHomeModern } from "react-icons/hi2";
 import { FaArrowRight } from "react-icons/fa";
 import { MdApartment } from "react-icons/md";
@@ -13,8 +12,7 @@ import { usePage } from '@inertiajs/react';
 import { Separator } from '@/Components/ui/separator';
 
 export default function Welcome({ }) {
-    const { properties } = usePage().props;
-    const { t } = useTranslation();
+    const { properties, static_text } = usePage().props;
 
     return (
         <>
@@ -48,7 +46,7 @@ export default function Welcome({ }) {
                                     <div className="relative p-4 text-white rounded">
                                         <h2 className='pb-4 text-xl'>Aydın, Didim</h2>
                                         <h1 className='py-4 text-3xl font-bold'>Özcan Emlak İnşaat</h1>
-                                        <p>{t('meta_descr')}</p>
+                                        {static_text.meta_descr}
 
                                         <div>
                                             search input template with filters

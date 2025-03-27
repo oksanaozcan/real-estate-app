@@ -7,6 +7,7 @@ use Illuminate\Foundation\Application;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Models\Property;
+use App\Models\StaticText;
 use App\Http\Resources\PropertyResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
@@ -20,6 +21,8 @@ class PageController extends Controller
         $locale = $user ? ($user->preferred_language ?? 'tr') : $request->cookie('lang', 'tr');
 
         App::setLocale($locale);
+
+        $search = StaticText::where('key', 'search')->first();
 
         $properties = Property::with(['translations' => function ($query) use ($locale) {
             $query->where('locale', $locale);

@@ -1,12 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
-import { useTranslation } from 'react-i18next';
 import { usePage } from '@inertiajs/react';
 
 export default function Dashboard() {
-    const { properties } = usePage().props;
+    const { properties, static_text } = usePage().props;
 
-    const { t } = useTranslation();
     return (
         <AuthenticatedLayout
             header={
@@ -24,10 +22,10 @@ export default function Dashboard() {
                             <table className="table-fixed">
                                 <thead>
                                     <tr>
-                                        <th>{t('title')}</th>
-                                        <th>{t('description')}</th>
-                                        <th>{t('price')}</th>
-                                        <th>{t('address')}</th>
+                                        <th>{static_text.title}</th>
+                                        <th>{static_text.description}</th>
+                                        <th>{static_text.price}</th>
+                                        <th>{static_text.address}</th>
                                     </tr>
                                 </thead>
                                 <tbody>

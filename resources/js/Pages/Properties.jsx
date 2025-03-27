@@ -1,16 +1,12 @@
 import BackgroundSVG from '@/Components/BackgroungSVG';
 import Header from '@/Components/Header/Header';
 import { Head } from '@inertiajs/react';
-import { useTranslation } from 'react-i18next';
 import Footer from '@/Components/Footer';
 import { Separator } from '@/Components/ui/separator';
 import { usePage } from '@inertiajs/react';
 
 export default function Properties() {
     const { properties } = usePage().props;
-    const { user_language } = usePage().props;
-    const { t } = useTranslation();
-    console.log(user_language)
 
     return (
         <>

@@ -4,10 +4,11 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, useForm } from '@inertiajs/react';
-import { useTranslation } from 'react-i18next';
+import { usePage } from '@inertiajs/react'
 
 export default function ConfirmPassword() {
-    const { t } = useTranslation();
+    const {static_text} = usePage().props;
+
     const { data, setData, post, processing, errors, reset } = useForm({
         password: '',
     });
@@ -22,7 +23,7 @@ export default function ConfirmPassword() {
 
     return (
         <GuestLayout>
-            <Head title={t('confirm_password')} />
+            <Head title={static_text.confirm_password} />
 
             <div className="mb-4 text-sm text-gray-600">
                 {t('this_is_a_secure_area_of_the_application_please_confirm_your_password_before_continuing')}
@@ -30,7 +31,7 @@ export default function ConfirmPassword() {
 
             <form onSubmit={submit}>
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value={t('password')} />
+                    <InputLabel htmlFor="password" value={static_text.password} />
 
                     <TextInput
                         id="password"
@@ -47,7 +48,7 @@ export default function ConfirmPassword() {
 
                 <div className="flex items-center justify-end mt-4">
                     <PrimaryButton className="ms-4" disabled={processing}>
-                        {t('confirm')}
+                        {static_text.confirm}
                     </PrimaryButton>
                 </div>
             </form>

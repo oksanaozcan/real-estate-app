@@ -3,10 +3,10 @@ import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, useForm } from '@inertiajs/react';
-import { useTranslation } from 'react-i18next';
+import { usePage } from '@inertiajs/react';
 
 export default function ForgotPassword({ status }) {
-    const { t } = useTranslation();
+    const {static_text} = usePage().props;
     const { data, setData, post, processing, errors } = useForm({
         email: '',
     });
@@ -19,10 +19,10 @@ export default function ForgotPassword({ status }) {
 
     return (
         <GuestLayout>
-            <Head title={t('forgot_password')} />
+            <Head title={static_text.forgot_password} />
 
             <div className="mb-4 text-sm text-gray-600">
-                {t('forgot_your_password_no problem')}
+                {static_text.forgot_your_password_no_problem}
             </div>
 
             {status && (
@@ -46,7 +46,7 @@ export default function ForgotPassword({ status }) {
 
                 <div className="flex items-center justify-end mt-4">
                     <PrimaryButton className="ms-4" disabled={processing}>
-                        {t('email_password_reset_link')}
+                        {static_text.email_password_reset_link}
                     </PrimaryButton>
                 </div>
             </form>

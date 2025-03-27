@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             CategoryTranslationSeeder::class,
             PropertySeeder::class,
             PropertyTranslationSeeder::class,
+            StaticTextSeeder::class,
         ]);
     }
 }
