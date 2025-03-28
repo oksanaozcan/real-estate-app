@@ -7,6 +7,8 @@ use Inertia\Middleware;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Cookie;
 use App\Models\StaticText;
+use App\Models\Category;
+use App\Http\Resources\CategoryResource;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -42,6 +44,10 @@ class HandleInertiaRequests extends Middleware
             return [$text->key => $text->translations->first()?->value ?? ''];
         });
 
+        $categories = Category::with(['translations' => function ($query) use ($locale) {
+            $query->where('locale', $locale);
+        }])->get();
+
         return [
             ...parent::share($request),
             'auth' => [
@@ -49,6 +55,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'locale' => $locale,
             'static_text' => $staticText,
+            'categories' => CategoryResource::collection($categories),
         ];
     }
 }

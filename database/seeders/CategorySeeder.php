@@ -13,10 +13,10 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::firstOrCreate(['slug' => 'detached-house']);
-        Category::firstOrCreate(['slug' => 'apartment-flat']);
-        Category::firstOrCreate(['slug' => 'commercial']);
-        Category::firstOrCreate(['slug' => 'land&lots']);
-        Category::firstOrCreate(['slug' => 'rentals']);
+        Category::firstOrCreate(['key' => 'detached-house', 'icon' => 'home']);
+        Category::firstOrCreate(['key' => 'apartment-flat', 'icon' => 'apartment']);
+        Category::firstOrCreate(['key' => 'commercial', 'icon' => 'commercial']);
+        Category::firstOrCreate(['key' => 'land&lots', 'icon' => 'land']);
+        Category::firstOrCreate(['key' => 'rentals', 'icon' => 'rental']);
     }
 }

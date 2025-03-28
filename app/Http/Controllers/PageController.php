@@ -2,52 +2,66 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Foundation\Application;
-use Inertia\Inertia;
-use Illuminate\Support\Facades\Route;
+use App\Http\Resources\PropertyResource;
+use App\Models\Category;
 use App\Models\Property;
 use App\Models\StaticText;
-use App\Http\Resources\PropertyResource;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class PageController extends Controller
 {
-    public function welcome(Request $request)
+    protected $locale;
+
+    public function __construct(Request $request)
+    {
+        $this->setLocale($request);
+    }
+
+    protected function setLocale(Request $request)
     {
         $user = Auth::user();
-        $locale = $user ? ($user->preferred_language ?? 'tr') : $request->cookie('lang', 'tr');
+        $this->locale = $user ? ($user->preferred_language ?? 'tr') : $request->cookie('lang', 'tr');
+        App::setLocale($this->locale);
+    }
 
-        App::setLocale($locale);
+    public function welcome(Request $request)
+    {
+        $this->setLocale($request);
 
         $search = StaticText::where('key', 'search')->first();
 
-        $properties = Property::with(['translations' => function ($query) use ($locale) {
-            $query->where('locale', $locale);
-        }])->get();
-
-        return Inertia::render('Welcome', [
-            'properties' => PropertyResource::collection($properties),
-            'user_language' => $locale,
-        ]);
+        return Inertia::render('Welcome');
     }
 
     public function properties(Request $request)
     {
-        $user = Auth::user();
-        $locale = $user ? ($user->preferred_language ?? 'tr') : $request->cookie('lang', 'tr');
+        $this->setLocale($request);
 
-        App::setLocale($locale);
-
-        $properties = Property::with(['translations' => function ($query) use ($locale) {
-            $query->where('locale', $locale);
+        $properties = Property::with(['translations' => function ($query) {
+            $query->where('locale', $this->locale);
         }])->get();
 
         return Inertia::render('Properties', [
             'properties' => PropertyResource::collection($properties),
-            'user_language' => $locale,
+        ]);
+    }
+
+    public function category(Request $request, $slug)
+    {
+        $this->setLocale($request);
+
+        $category = Category::where('key', $slug)->firstOrFail();
+
+        $properties = Property::where('category_id', $category->id)
+            ->with(['translations' => function ($query) {
+                $query->where('locale', $this->locale);
+            }])->get();
+
+        return Inertia::render('Category', [
+            'properties' => PropertyResource::collection($properties),
         ]);
     }
 }

@@ -63,6 +63,10 @@ class StaticTextSeeder extends Seeder
             'city_address_district' => 'City, Address, District',
             'contact' => 'Contact',
             'meta_descr' => 'Your reliable real estate consultant in Didim! Professional service for buying and renting apartments, villas, and land. Find your dream property!',
+            'profile' => 'Profile',
+            'log_out' => 'Log Out',
+            'name' => 'Name',
+            'already_registered' => 'Already registered?',
         ];
 
         $ru_translations = [
@@ -115,6 +119,10 @@ class StaticTextSeeder extends Seeder
             'city_address_district' => 'Город, Адрес, Район',
             'contact' => 'Контакты',
             'meta_descr' => 'Ваш надежный консультант по недвижимости в Дидиме! Профессиональные услуги по покупке и аренде квартир, вилл и земельных участков. Найдите недвижимость своей мечты!',
+            'profile' => 'Профиль',
+            'log_out' => 'Выйти',
+            'name' => 'Имя',
+            'already_registered' => 'Уже зарегистрированы?',
         ];
 
         $tr_translations = [
@@ -167,6 +175,10 @@ class StaticTextSeeder extends Seeder
             'city_address_district' => 'Şehir, Adres, İlçe',
             'contact' => 'İletişim',
             'meta_descr' => "Didim'de güvenilir emlak danışmanınız! Satılık ve kiralık daireler, villalar ve arsalar için profesyonel hizmet. Hayalinizdeki mülke ulaşın!",
+            'profile' => 'Profil',
+            'log_out' => 'Çıkış Yap',
+            'name' => 'İsim',
+            'already_registered' => 'Zaten kayıtlı mısınız?',
         ];
 
         foreach ($texts as $key => $text) {

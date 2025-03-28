@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('category_translations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->enum('language_code', ['tr', 'en', 'ru']);
-            $table->string('title');
+            $table->enum('locale', ['tr', 'en', 'ru']);
+            $table->string('value');
             $table->timestamps();
 
-            $table->unique(['category_id', 'language_code']);
+            $table->unique(['category_id', 'locale']);
         });
     }
 

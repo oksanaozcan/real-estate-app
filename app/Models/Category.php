@@ -18,8 +18,9 @@ class Category extends Model
         return $this->hasMany(CategoryTranslation::class);
     }
 
-    public function getTranslation($language)
+    public function translation($locale = null)
     {
-        return $this->translations->firstWhere('language_code', $language);
+        $locale = $locale ?? app()->getLocale();
+        return $this->translations->where('locale', $locale)->first();
     }
 }

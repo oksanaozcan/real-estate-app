@@ -42,7 +42,7 @@ const LanguageSwitcher = () => {
 
         axios.defaults.headers.common['X-Locale'] = lang;
         router.visit(page.url, {
-            only: ['properties', 'static_text'],
+            // only: ['properties', 'static_text'],
             preserveScroll: true,
             preserveState: true,
         });

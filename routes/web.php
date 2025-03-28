@@ -16,6 +16,7 @@ use App\Http\Controllers\PageController;
 Route::controller(PageController::class)->group(function () {
     Route::get('/', 'welcome')->name('home');
     Route::get('properties', 'properties')->name('properties');
+    Route::get('categories/{slug}', 'category')->name('category.show');
 });
 
 Route::get('/lang/{locale}', [TranslationController::class, 'changeLanguage'])->name('language.change');

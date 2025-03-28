@@ -11,7 +11,9 @@ class CategoryTranslation extends Model
 
     protected $table = 'category_translations';
 
-    protected $fillable = ['category_id', 'language_code', 'title'];
+    protected $fillable = ['category_id', 'locale', 'value'];
+
+    public $timestamps = false;
 
     public function category()
     {

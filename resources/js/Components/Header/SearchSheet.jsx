@@ -6,16 +6,19 @@ import {
 } from "@/Components/ui/sheet"
 import PrimaryButton from "../PrimaryButton";
 import TextInput from "../TextInput";
-import { CiSearch } from "react-icons/ci";
 import { Separator } from "../ui/separator";
 import ResponsiveNavLink from "../ResponsiveNavLink";
-import { GrFormNextLink } from "react-icons/gr";
 import LanguageSwitcher from '@/Components/Header/LanguageSwitcher';
 import ThemeToggle from '@/Components/Header/ThemeToggle';
 import { usePage } from '@inertiajs/react'
+import Icons from "@/lib/icons";
 
 export default function SearchSheet({ }) {
-    const { auth, static_text } = usePage().props;
+    const { auth, static_text, categories } = usePage().props;
+
+    const ArrowIcon = Icons["right_arrow"] || Icons["fallback"];
+    const SearchIcon = Icons["search"] || Icons["fallback"];
+
     return (
         <>
             <SheetContent>
@@ -25,12 +28,16 @@ export default function SearchSheet({ }) {
 
                 <TextInput className="w-full" placeholder={static_text.city_address_district} />
                 <PrimaryButton className="flex items-center justify-center my-4">
-                    <CiSearch className="mr-2" size={18} />
+                    <SearchIcon className="mr-2" size={18} />
                     {static_text.search}
                 </PrimaryButton>
                 <Separator className="my-3" />
                 <div>
-                    <ResponsiveNavLink className="flex items-center justify-start text-center">Category <GrFormNextLink className="ml-1" size={18} /></ResponsiveNavLink>
+                    {
+                        categories.data.map(category => (
+                            <ResponsiveNavLink key={category.id} className="flex items-center justify-start text-center">{category.translations.value} <ArrowIcon className="ml-4" size={14} /></ResponsiveNavLink>
+                        ))
+                    }
                 </div>
                 <Separator className="my-3" />
                 {auth.user ? (

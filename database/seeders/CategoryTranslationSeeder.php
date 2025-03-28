@@ -41,16 +41,16 @@ class CategoryTranslationSeeder extends Seeder
             ],
         ];
 
-        foreach ($translations as $slug => $titles) {
-            $category = Category::where('slug', $slug)->first();
+        foreach ($translations as $key => $values) {
+            $category = Category::where('key', $key)->first();
 
             if ($category) {
-                foreach ($titles as $lang => $title) {
+                foreach ($values as $lang => $value) {
                     CategoryTranslation::firstOrCreate([
                         'category_id'   => $category->id,
-                        'language_code' => $lang,
+                        'locale' => $lang,
                     ], [
-                        'title' => $title
+                        'value' => $value
                     ]);
                 }
             }
