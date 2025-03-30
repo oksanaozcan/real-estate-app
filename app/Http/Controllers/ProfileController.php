@@ -60,4 +60,16 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function updatePreferredLang(Request $request)
+    {
+        $request->validate([
+            'language' => 'required|in:en,tr,ru',
+        ]);
+
+        $user = Auth::user();
+        $user->update(['preferred_language' => $request->language]);
+
+        return back()->withCookie(cookie('lang', $request->language, 43200));
+    }
 }

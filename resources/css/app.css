@@ -29,6 +29,14 @@
         --chart-4: 43 74% 66%;
         --chart-5: 27 87% 67%;
         --radius: 0.5rem;
+        --sidebar-background: 0 0% 98%;
+        --sidebar-foreground: 240 5.3% 26.1%;
+        --sidebar-primary: 240 5.9% 10%;
+        --sidebar-primary-foreground: 0 0% 98%;
+        --sidebar-accent: 240 4.8% 95.9%;
+        --sidebar-accent-foreground: 240 5.9% 10%;
+        --sidebar-border: 220 13% 91%;
+        --sidebar-ring: 217.2 91.2% 59.8%;
     }
 
     .dark {
@@ -56,6 +64,14 @@
         --chart-3: 30 80% 55%;
         --chart-4: 280 65% 60%;
         --chart-5: 340 75% 55%;
+        --sidebar-background: 240 5.9% 10%;
+        --sidebar-foreground: 240 4.8% 95.9%;
+        --sidebar-primary: 224.3 76.3% 48%;
+        --sidebar-primary-foreground: 0 0% 100%;
+        --sidebar-accent: 240 3.7% 15.9%;
+        --sidebar-accent-foreground: 240 4.8% 95.9%;
+        --sidebar-border: 240 3.7% 15.9%;
+        --sidebar-ring: 217.2 91.2% 59.8%;
     }
 }
 
@@ -72,5 +88,27 @@
 
     .nav-link {
         @apply flex items-center justify-center rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white;
+    }
+
+    .CollapsibleContent[data-state="open"] {
+        animation: slideDown 400ms ease-out;
+    }
+
+    .CollapsibleContent[data-state="closed"] {
+        animation: slideUp 400ms ease-out;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 10%;
+            transform: translateY(-1rem);
+        }
+    }
+
+    @keyframes slideUp {
+        to {
+            opacity: 10%;
+            transform: translateY(-1rem);
+        }
     }
 }

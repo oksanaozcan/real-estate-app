@@ -6,6 +6,7 @@ import { GrMapLocation } from "react-icons/gr";
 import { GiHouseKeys } from "react-icons/gi";
 import { FaRegCircle } from "react-icons/fa";
 import { CiSearch } from "react-icons/ci";
+import { IoChevronForward } from "react-icons/io5";
 
 const Icons = {
     home: HiHomeModern,
@@ -16,6 +17,7 @@ const Icons = {
     right_arrow: FaArrowRight,
     search: CiSearch,
     fallback: FaRegCircle,
+    chevron_right: IoChevronForward,
 };
 
 export default Icons;
