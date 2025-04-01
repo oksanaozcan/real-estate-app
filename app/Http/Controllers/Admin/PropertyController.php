@@ -5,25 +5,25 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use App\Models\Category;
-use App\Http\Resources\CategoryResource;
+use App\Models\Property;
+use App\Http\Resources\PropertyResource;
 
-class CategoryController extends Controller
+class PropertyController extends Controller
 {
     public function index()
     {
-        $categories = Category::with(['translations' => function ($query) {
+        $properties = Property::with(['translations' => function ($query) {
             $query->where('locale', $this->locale);
         }])->get();
 
-        return Inertia::render('Admin/Categories/Index', [
-            'categories' => CategoryResource::collection($categories),
+        return Inertia::render('Admin/Properties/Index', [
+            'properties' => PropertyResource::collection($properties),
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Admin/Categories/Create');
+        return Inertia::render('Admin/Properties/Create');
     }
 
     public function store(Request $request)

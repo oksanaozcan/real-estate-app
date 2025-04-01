@@ -13,20 +13,6 @@ use Inertia\Inertia;
 
 class PageController extends Controller
 {
-    protected $locale;
-
-    public function __construct(Request $request)
-    {
-        $this->setLocale($request);
-    }
-
-    protected function setLocale(Request $request)
-    {
-        $user = Auth::user();
-        $this->locale = $user ? ($user->preferred_language ?? 'tr') : $request->cookie('lang', 'tr');
-        App::setLocale($this->locale);
-    }
-
     public function welcome(Request $request)
     {
         $this->setLocale($request);

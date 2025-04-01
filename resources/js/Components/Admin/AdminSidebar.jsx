@@ -18,7 +18,13 @@ const items = [
             {title: 'Create', route: 'categories.create' },
         ],
     },
-
+    {
+        title: "Properties",
+        routes: [
+            {title: 'View all', route: 'properties.index' },
+            {title: 'Create', route: 'properties.create' },
+        ],
+    },
 ];
 
 export default function AdminSidebar() {

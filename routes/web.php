@@ -11,6 +11,7 @@ use App\Http\Controllers\TranslationController;
 
 use App\Http\Controllers\Admin\AdminPageController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PropertyController;
 
 Route::get('/lang/{locale}', [TranslationController::class, 'changeLanguage'])->name('language.change');
 
@@ -39,6 +40,7 @@ Route::middleware(['auth', 'verified', AdminMiddleware::class])->group(function 
         });
 
         Route::resource('categories', CategoryController::class);
+        Route::resource('properties', PropertyController::class);
     });
 });
 
