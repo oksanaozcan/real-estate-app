@@ -17,7 +17,8 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->foreignId('category_id')->constrained();
             $table->integer('square');
-            $table->string('rooms');
+            $table->integer('rooms');
+            $table->integer('salon');
             $table->string('building_age');
             $table->integer('located_floor')->nullable();
             $table->integer('floors_number');

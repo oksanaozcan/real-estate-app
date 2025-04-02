@@ -66,6 +66,7 @@ class StaticTextSeeder extends Seeder
             'categories' => 'Categories',
             'select_category' => 'Select a category',
             'is_published' => 'Publich immediately',
+            'salon' => 'Salon',
         ];
 
         $ru_translations = [
@@ -121,6 +122,7 @@ class StaticTextSeeder extends Seeder
             'categories' => 'Категории',
             'select_category' => 'Выберите категорию',
             'is_published' => 'Опубликовать сразу',
+            'salon' => 'Салон',
         ];
 
         $tr_translations = [
@@ -176,6 +178,7 @@ class StaticTextSeeder extends Seeder
             'categories' => 'Kategoriler',
             'select_category' => 'Bir kategori seçin',
             'is_published' => 'Hemen yayımla',
+            'salon' => 'Salon',
         ];
 
         foreach ($texts as $key => $text) {
