@@ -19,6 +19,11 @@ class PropertyResource extends JsonResource
             'address' => $this->address,
             'price' => $this->price,
             'category_id' => $this->category_id,
+            'category' => $this->whenLoaded('category', function () {
+                return [
+                    'translation' => new CategoryTranslationResource($this->category->translations->first()),
+                ];
+            }),
             'square' => $this->square,
             'rooms' => $this->rooms,
             'building_age' => $this->building_age,

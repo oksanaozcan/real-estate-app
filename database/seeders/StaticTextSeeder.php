@@ -27,18 +27,14 @@ class StaticTextSeeder extends Seeder
             'floors_number' => 'Floors number',
             'bathrooms' => 'Bathrooms',
             'kitchen' => 'Kitchen',
-            // 'kitchen_types' => [
-            //     'closed' => 'Closed',
-            //     'opened' => 'Opened',
-            // ],
+            'closed' => 'Closed',
+            'opened' => 'Opened',
             'balcony' => 'Balcony',
             'furnished' => 'Furnished',
             'usage_status' => 'Usage Status',
-            // 'usage_status_types' => [
-            //     'empty' => 'Empty',
-            //     'property_owner' => 'Property Owner',
-            //     'tenant' => 'Tenant',
-            // ],
+            'empty' => 'Empty',
+            'property_owner' => 'Property Owner',
+            'tenant' => 'Tenant',
             'on_site' => 'On Site',
             'site_name' => 'Site Name',
             'site_dues' => 'Site Dues',
@@ -67,6 +63,9 @@ class StaticTextSeeder extends Seeder
             'log_out' => 'Log Out',
             'name' => 'Name',
             'already_registered' => 'Already registered?',
+            'categories' => 'Categories',
+            'select_category' => 'Select a category',
+            'is_published' => 'Publich immediately',
         ];
 
         $ru_translations = [
@@ -83,18 +82,14 @@ class StaticTextSeeder extends Seeder
             'floors_number' => 'Количество этажей',
             'bathrooms' => 'Ванные комнаты',
             'kitchen' => 'Кухня',
-            // 'kitchen_types' => [
-            //     'closed' => 'Отдельная',
-            //     'opened' => 'Совмещенная',
-            // ],
+            'closed' => 'Отдельная',
+            'opened' => 'Совмещенная',
             'balcony' => 'Балкон',
             'furnished' => 'Меблированная',
             'usage_status' => 'Статус использования',
-            // 'usage_status_types' => [
-            //     'empty' => 'Свободная',
-            //     'property_owner' => 'Проживает собственник',
-            //     'tenant' => 'Проживает арендатор',
-            // ],
+            'empty' => 'Свободная',
+            'property_owner' => 'Проживает собственник',
+            'tenant' => 'Проживает арендатор',
             'on_site' => 'В жилом комплексе',
             'site_name' => 'Название комплекса',
             'site_dues' => 'Платежи в жил. комплекс',
@@ -123,6 +118,9 @@ class StaticTextSeeder extends Seeder
             'log_out' => 'Выйти',
             'name' => 'Имя',
             'already_registered' => 'Уже зарегистрированы?',
+            'categories' => 'Категории',
+            'select_category' => 'Выберите категорию',
+            'is_published' => 'Опубликовать сразу',
         ];
 
         $tr_translations = [
@@ -139,18 +137,14 @@ class StaticTextSeeder extends Seeder
             'floors_number' => 'Kat Sayısı',
             'bathrooms' => 'Banyolar',
             'kitchen' => 'Mutfak',
-            // 'kitchen_types' => [
-            //     'closed' => 'Kapalı',
-            //     'opened' => 'Açık',
-            // ],
+            'closed' => 'Kapalı',
+            'opened' => 'Açık',
             'balcony' => 'Balkon',
             'furnished' => 'Eşyalı',
             'usage_status' => 'Kullanım Durumu',
-            // 'usage_status_types' => [
-            //     'empty' => 'Boş',
-            //     'property_owner' => 'Ev Sahibi',
-            //     'tenant' => 'Kiracı',
-            // ],
+            'empty' => 'Boş',
+            'property_owner' => 'Ev Sahibi',
+            'tenant' => 'Kiracı',
             'on_site' => 'Site İçinde',
             'site_name' => 'Site Adı',
             'site_dues' => 'Aidat',
@@ -179,6 +173,9 @@ class StaticTextSeeder extends Seeder
             'log_out' => 'Çıkış Yap',
             'name' => 'İsim',
             'already_registered' => 'Zaten kayıtlı mısınız?',
+            'categories' => 'Kategoriler',
+            'select_category' => 'Bir kategori seçin',
+            'is_published' => 'Hemen yayımla',
         ];
 
         foreach ($texts as $key => $text) {
@@ -203,7 +200,6 @@ class StaticTextSeeder extends Seeder
                 'locale' => 'ru',
                 'value' => $ru_translations[$key],
             ]);
-
 
         }
     }

@@ -33,54 +33,200 @@ export const propertyColumns = [
         enableHiding: false,
     },
     {
+        accessorFn: (row) => row.translations.title,
+        id: "translationsTitle",
+        header: "başlık",
+        cell: ({ row }) => <div>{row.original.translations.title}</div>,
+    },
+    {
         accessorKey: "address",
         header: ({ column }) => (
             <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                Address
+                Adres
                 <ArrowUpDown />
             </Button>
         ),
         cell: ({ row }) => <div className="lowercase">{row.getValue("address")}</div>,
+        filterFn: "includesString",
     },
     {
-        accessorKey: "balcony",
+        accessorFn: (row) => row.category.translation.value,
+        id: "categoryTitle",
+        header: "Kategori",
+        cell: ({ row }) => <div>{row.original.category.translation.value}</div>,
+        filterFn: "includesString",
+    },
+    {
+        accessorKey: "price",
         header: ({ column }) => (
             <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                Balcony
+                Fiyat
                 <ArrowUpDown />
             </Button>
         ),
-        cell: ({ row }) => <div className="lowercase">{row.getValue("balcony")}</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue("price")}</div>,
+        filterFn: (row, columnId, value) => {
+            const price = row.getValue(columnId);
+            const min = value?.min ?? Number.MIN_VALUE;
+            const max = value?.max ?? Number.MAX_VALUE;
+            return price >= min && price <= max;
+        },
+    },
+    {
+        accessorKey: "square",
+        header: ({ column }) => (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                m2
+                <ArrowUpDown />
+            </Button>
+        ),
+        cell: ({ row }) => <div className="lowercase">{row.getValue("square")}</div>,
+    },
+    {
+        accessorKey: "rooms",
+        header: ({ column }) => (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                oda
+                <ArrowUpDown />
+            </Button>
+        ),
+        cell: ({ row }) => <div className="lowercase">{row.getValue("rooms")}</div>,
+    },
+    {
+        accessorKey: "kitchen",
+        header: ({ column }) => (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                mutfak
+                <ArrowUpDown />
+            </Button>
+        ),
+        cell: ({ row }) => <div className="lowercase">{row.getValue("kitchen")}</div>,
     },
     {
         accessorKey: "bathrooms",
         header: ({ column }) => (
             <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                Bathrooms
+                Banyo
                 <ArrowUpDown />
             </Button>
         ),
         cell: ({ row }) => <div className="lowercase">{row.getValue("bathrooms")}</div>,
     },
     {
+        accessorKey: "balcony",
+        header: ({ column }) => (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                Balkon
+                <ArrowUpDown />
+            </Button>
+        ),
+        cell: ({ row }) => <div className="lowercase">{row.getValue("balcony")}</div>,
+    },
+    {
         accessorKey: "building_age",
         header: ({ column }) => (
             <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                Build/Age
+                Bina Yaşı
                 <ArrowUpDown />
             </Button>
         ),
         cell: ({ row }) => <div className="lowercase">{row.getValue("building_age")}</div>,
     },
     {
-        accessorKey: "category_id",
+        accessorKey: "credit_eligible",
         header: ({ column }) => (
             <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                Category
+                Krediye Uygun
                 <ArrowUpDown />
             </Button>
         ),
-        cell: ({ row }) => <div className="lowercase">{row.getValue("category_id")}</div>,
+        cell: ({ row }) => {
+            let val = row.getValue("credit_eligible");
+            return <div className="lowercase">{val == '1' ? "yes" : "no"}</div>
+        }
+    },
+    {
+        accessorKey: "exchange_possibility",
+        header: ({ column }) => (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                Takas
+                <ArrowUpDown />
+            </Button>
+        ),
+        cell: ({ row }) => {
+            let val = row.getValue("exchange_possibility");
+            return <div className="lowercase">{val == '1' ? "yes" : "no"}</div>
+        }
+    },
+    {
+        accessorKey: "floors_number",
+        header: ({ column }) => (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                Kat Sayısı
+                <ArrowUpDown />
+            </Button>
+        ),
+        cell: ({ row }) => <div className="lowercase">{row.getValue("floors_number")}</div>,
+    },
+    {
+        accessorKey: "furnished",
+        header: ({ column }) => (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                Eşyalı
+                <ArrowUpDown />
+            </Button>
+        ),
+        cell: ({ row }) => <div className="lowercase">{row.getValue("furnished") == '1' ? 'yes' : 'no'}</div>,
+    },
+    {
+        accessorKey: "located_floor",
+        header: ({ column }) => (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                Bulunduğu Kat
+                <ArrowUpDown />
+            </Button>
+        ),
+        cell: ({ row }) => <div className="lowercase">{row.getValue("located_floor")}</div>,
+    },
+    {
+        accessorKey: "on_site",
+        header: ({ column }) => (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                Site İçinde
+                <ArrowUpDown />
+            </Button>
+        ),
+        cell: ({ row }) => <div className="lowercase">{row.getValue("on_site")}</div>,
+    },
+    {
+        accessorKey: "site_dues",
+        header: ({ column }) => (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                Aydat
+                <ArrowUpDown />
+            </Button>
+        ),
+        cell: ({ row }) => <div className="lowercase">{row.getValue("site_dues")}</div>,
+    },
+    {
+        accessorKey: "site_name",
+        header: ({ column }) => (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                Site Adı
+                <ArrowUpDown />
+            </Button>
+        ),
+        cell: ({ row }) => <div className="lowercase">{row.getValue("site_name")}</div>,
+    },
+    {
+        accessorKey: "usage_status",
+        header: ({ column }) => (
+            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                Kullanım Durumu
+                <ArrowUpDown />
+            </Button>
+        ),
+        cell: ({ row }) => <div className="lowercase">{row.getValue("usage_status")}</div>,
     },
     {
         accessorKey: "created_at",
@@ -93,159 +239,15 @@ export const propertyColumns = [
         cell: ({ row }) => <div className="lowercase">{row.getValue("created_at")}</div>,
     },
     {
-        accessorKey: "credit_eligible",
-        header: ({ column }) => (
-            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                credit_eligible
-                <ArrowUpDown />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="lowercase">{row.getValue("credit_eligible")}</div>,
-    },
-    {
-        accessorKey: "exchange_possibility",
-        header: ({ column }) => (
-            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                exchange_possibility
-                <ArrowUpDown />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="lowercase">{row.getValue("exchange_possibility")}</div>,
-    },
-    {
-        accessorKey: "floors_number",
-        header: ({ column }) => (
-            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                floors_number
-                <ArrowUpDown />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="lowercase">{row.getValue("floors_number")}</div>,
-    },
-    {
-        accessorKey: "furnished",
-        header: ({ column }) => (
-            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                furnished
-                <ArrowUpDown />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="lowercase">{row.getValue("furnished")}</div>,
-    },
-    {
         accessorKey: "is_published",
         header: ({ column }) => (
             <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                is_published
+                is/pub
                 <ArrowUpDown />
             </Button>
         ),
-        cell: ({ row }) => <div className="lowercase">{row.getValue("is_published")}</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue("is_published") == '1' ? 'yes' : 'no'}</div>,
     },
-    {
-        accessorKey: "kitchen",
-        header: ({ column }) => (
-            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                kitchen
-                <ArrowUpDown />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="lowercase">{row.getValue("kitchen")}</div>,
-    },
-    {
-        accessorKey: "located_floor",
-        header: ({ column }) => (
-            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                located_floor
-                <ArrowUpDown />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="lowercase">{row.getValue("located_floor")}</div>,
-    },
-    {
-        accessorKey: "on_site",
-        header: ({ column }) => (
-            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                on_site
-                <ArrowUpDown />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="lowercase">{row.getValue("on_site")}</div>,
-    },
-    {
-        accessorKey: "price",
-        header: ({ column }) => (
-            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                price
-                <ArrowUpDown />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="lowercase">{row.getValue("price")}</div>,
-    },
-    {
-        accessorKey: "rooms",
-        header: ({ column }) => (
-            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                rooms
-                <ArrowUpDown />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="lowercase">{row.getValue("rooms")}</div>,
-    },
-    {
-        accessorKey: "site_dues",
-        header: ({ column }) => (
-            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                site_dues
-                <ArrowUpDown />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="lowercase">{row.getValue("site_dues")}</div>,
-    },
-    {
-        accessorKey: "site_name",
-        header: ({ column }) => (
-            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                site_name
-                <ArrowUpDown />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="lowercase">{row.getValue("site_name")}</div>,
-    },
-    {
-        accessorKey: "square",
-        header: ({ column }) => (
-            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                square
-                <ArrowUpDown />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="lowercase">{row.getValue("square")}</div>,
-    },
-    {
-        accessorKey: "usage_status",
-        header: ({ column }) => (
-            <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                usage_status
-                <ArrowUpDown />
-            </Button>
-        ),
-        cell: ({ row }) => <div className="lowercase">{row.getValue("usage_status")}</div>,
-    },
-    {
-        accessorFn: (row) => row.translations.title,
-        id: "translationsTitle",
-        header: "title",
-        cell: ({ row }) => <div>{row.original.translations.title}</div>,
-    },
-    {
-        accessorFn: (row) => row.translations.description,
-        id: "translationsDescription",
-        header: "deacription",
-        cell: ({ row }) => <div>{row.original.translations.description}</div>,
-    },
-
-
     {
         id: "actions",
         enableHiding: false,
