@@ -49,7 +49,7 @@ export function PropertyCreateForm() {
             {['price', 'square', 'rooms','salon', 'building_age', 'located_floor', 'floors_number', 'bathrooms'].map((field) => (
                 <div key={field}>
                     <Label>{static_text[field]}</Label>
-                    <Input type="number" min="0" value={data[field]} onChange={(e) => setData(field, e.target.value)} />
+                    <Input type="number" value={data[field]} onChange={(e) => setData(field, e.target.value)} />
                     {errors[field] && <p className="text-sm text-red-500">{errors[field]}</p>}
                 </div>
             ))}
@@ -102,11 +102,29 @@ export function PropertyCreateForm() {
             {/* Site Name & Dues */}
             {['site_name', 'site_dues'].map(field => (
                 <div key={field}>
-                    <Label>{static_text[field]}</Label>
+                    <Label>{static_text[field]}(not necessarily)</Label>
                     <Input type="text" value={data[field]} onChange={(e) => setData(field, e.target.value)} />
                     {errors[field] && <p className="text-sm text-red-500">{errors[field]}</p>}
                 </div>
             ))}
+
+            {/* usage_status Select */}
+            <div>
+                <Label>{static_text.usage_status}</Label>
+                <Select value={data.usage_status} onValueChange={(value) => setData('usage_status', value)}>
+                    <SelectTrigger>
+                        <SelectValue placeholder={static_text.usage_status} />
+                    </SelectTrigger>
+                    <SelectContent>
+                        <SelectGroup>
+                            <SelectItem value='empty'>{static_text.empty}</SelectItem>
+                            <SelectItem value='property_owner'>{static_text.property_owner}</SelectItem>
+                            <SelectItem value='tenant'>{static_text.tenant}</SelectItem>
+                        </SelectGroup>
+                    </SelectContent>
+                </Select>
+                {errors.usage_status && <p className="text-sm text-red-500">{errors.usage_status}</p>}
+            </div>
 
             {/* Titles */}
             {['title_tr', 'title_en', 'title_ru'].map((field, index) => {
