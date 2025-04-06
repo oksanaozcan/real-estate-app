@@ -8,6 +8,7 @@ use App\Http\Resources\PropertyResource;
 use App\Services\PropertyService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Log;
 
 class PropertyController extends Controller
 {
@@ -27,15 +28,7 @@ class PropertyController extends Controller
 
     public function store(StorePropertyRequest $request, PropertyService $propertyService)
     {
-        // if ($request->hasFile('images')) {
-        //     foreach ($request->file('images') as $image) {
-        //         $path = $image->store('properties', 'public');
-
-        //         $property->images()->create([
-        //             'image_path' => $path,
-        //         ]);
-        //     }
-        // }
+        Log::info($request);
         $validatedData = $request->validated();
 
         try {

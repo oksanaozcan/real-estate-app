@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Property;
+use App\Models\PropertyImage;
 use Illuminate\Support\Facades\DB;
 
 class PropertyService
@@ -24,16 +25,6 @@ class PropertyService
         DB::beginTransaction();
 
         try {
-            // if ($request->hasFile('images')) {
-            //     foreach ($request->file('images') as $image) {
-            //         $path = $image->store('properties', 'public');
-
-            //         $property->images()->create([
-            //             'image_path' => $path,
-            //         ]);
-            //     }
-            // }
-
             // Create the base property
             $property = Property::create([
                 'address' => $validatedData['address'],
@@ -67,6 +58,16 @@ class PropertyService
 
             foreach ($translations as $translation) {
                 $property->translations()->create($translation);
+            }
+
+             // Save the images
+             if (isset($validatedData['images'])) {
+                foreach ($validatedData['images'] as $imagePath) {
+                    PropertyImage::create([
+                        'property_id' => $property->id,
+                        'image_path' => $imagePath,
+                    ]);
+                }
             }
 
             DB::commit();

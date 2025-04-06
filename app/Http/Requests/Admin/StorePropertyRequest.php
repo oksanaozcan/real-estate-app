@@ -44,6 +44,10 @@ class StorePropertyRequest extends FormRequest
             'credit_eligible' => ['required', 'boolean'],
             'exchange_possibility' => ['required', 'boolean'],
             'is_published' => ['required', 'boolean'],
+
+            // Image files
+            'images' => ['nullable', 'array'],
+            'images.*' => ['string'],
         ];
     }
 }
