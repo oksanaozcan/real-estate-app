@@ -33,6 +33,8 @@ const fuzzyFilter = (row, columnId, value, addMeta) => {
     return itemRank.passed;
 };
 
+// image.url // TODO: instead of manually building the URL
+
 export function PropertyDataTable({ columns, items }) {
     const [globalFilter, setGlobalFilter] = React.useState("");
     const [columnFilters, setColumnFilters] = React.useState([]);

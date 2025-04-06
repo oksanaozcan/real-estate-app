@@ -24,6 +24,16 @@ class PropertyService
         DB::beginTransaction();
 
         try {
+            // if ($request->hasFile('images')) {
+            //     foreach ($request->file('images') as $image) {
+            //         $path = $image->store('properties', 'public');
+
+            //         $property->images()->create([
+            //             'image_path' => $path,
+            //         ]);
+            //     }
+            // }
+
             // Create the base property
             $property = Property::create([
                 'address' => $validatedData['address'],
