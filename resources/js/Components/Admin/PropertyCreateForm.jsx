@@ -55,6 +55,18 @@ export function PropertyCreateForm() {
         <>
             <div>
                 <FilePond
+                    beforeRemoveFile={(item) => {
+                        let path = encodeURIComponent(item.serverId);
+                        axios.delete(`/admin/delete-image/${path}`, {
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                            },
+                        })
+                            .then(() => console.log("file has been removed from storage successfully"))
+                            .catch(err => {
+                                console.error('Error deleting image from storage:', err);
+                            });
+                    }}
                     files={files}
                     onupdatefiles={setFiles}
                     allowMultiple={true}
@@ -93,6 +105,7 @@ export function PropertyCreateForm() {
                         },
                     }}
                     labelIdle='Drag & Drop your images or <span class="filepond--label-action">Browse</span>'
+                  
                 />
             </div>
             <form onSubmit={onSubmit} className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -235,15 +248,3 @@ export function PropertyCreateForm() {
         </>
     );
 }
-
-// axios.delete(`/admin/delete-image/${uniqueFileId}`, {
-//     // data: { path: uniqueFileId },
-//     headers: {
-//         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-//     },
-// })
-//     .then(() => load())
-//     .catch(err => {
-//         console.error('Error deleting image from storage:', err);
-//         error("Delete from store failed");
-//     });

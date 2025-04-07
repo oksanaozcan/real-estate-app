@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Property;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -23,5 +24,7 @@ class DatabaseSeeder extends Seeder
             PropertyTranslationSeeder::class,
             StaticTextSeeder::class,
         ]);
+
+        Property::factory()->count(15)->create();
     }
 }

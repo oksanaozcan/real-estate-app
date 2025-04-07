@@ -7,8 +7,6 @@ use App\Models\Category;
 use App\Models\Property;
 use App\Models\StaticText;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class PageController extends Controller
@@ -42,9 +40,15 @@ class PageController extends Controller
         $category = Category::where('key', $slug)->firstOrFail();
 
         $properties = Property::where('category_id', $category->id)
-            ->with(['translations' => function ($query) {
-                $query->where('locale', $this->locale);
-            }])->get();
+            ->with([
+                'translations' => function ($query) {
+                    $query->where('locale', $this->locale);
+                },
+                'images' => function ($query) {
+                    $query->limit(1); // only the first image
+                },
+            ])
+            ->get();
 
         return Inertia::render('Category', [
             'properties' => PropertyResource::collection($properties),

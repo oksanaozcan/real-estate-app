@@ -22,12 +22,12 @@ class ImageUploadController extends Controller
         return response()->json(['error' => 'No file uploaded'], 400);
     }
 
-    public function delete(Request $request)
+    public function delete($path)
     {
-        $imagePath = $request->input('path');
+        $path = urldecode($path);
 
-        if (Storage::exists($imagePath)) {
-            Storage::delete($imagePath);
+        if (Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
 
             return response()->json(['success' => true]);
         }

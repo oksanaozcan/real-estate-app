@@ -12,13 +12,6 @@ import CollapsMenuItem from "./CollapsMenuItem";
 
 const items = [
     {
-        title: "Categories",
-        routes: [
-            {title: 'View all', route: 'categories.index' },
-            {title: 'Create', route: 'categories.create' },
-        ],
-    },
-    {
         title: "Properties",
         routes: [
             {title: 'View all', route: 'properties.index' },

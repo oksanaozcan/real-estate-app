@@ -26,6 +26,7 @@ class PropertyResource extends JsonResource
             }),
             'square' => $this->square,
             'rooms' => $this->rooms,
+            'salon' => $this->salon,
             'building_age' => $this->building_age,
             'located_floor' => $this->located_floor,
             'floors_number' => $this->floors_number,
@@ -43,6 +44,9 @@ class PropertyResource extends JsonResource
             'is_published' => $this->is_published,
             'translations' => $this->whenLoaded('translations', function () {
                 return new PropertyTranslationResource($this->translations->first());
+            }),
+            'image' => $this->whenLoaded('images', function () {
+                return $this->images->first()?->url ?? null;
             }),
         ];
 

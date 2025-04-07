@@ -2,10 +2,11 @@ import BackgroundSVG from '@/Components/BackgroungSVG';
 import Header from '@/Components/Header/Header';
 import { Head } from '@inertiajs/react';
 import Footer from '@/Components/Footer';
-import { Separator } from '@/Components/ui/separator';
 import { usePage } from '@inertiajs/react';
+import CardList from '@/Components/CardList';
 
 export default function Category() {
+    const {properties} = usePage().props;
 
     return (
         <>
@@ -18,7 +19,9 @@ export default function Category() {
                     <div className="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                         <Header />
                         <main className="mt-6">
-                          Category Page
+                          <div>
+                           <CardList properties={properties.data}/>
+                          </div>
                         </main>
                         <Footer />
                     </div>
