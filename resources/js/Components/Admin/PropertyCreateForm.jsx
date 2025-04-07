@@ -15,6 +15,7 @@ import {
 } from '@/Components/ui/select';
 import { Checkbox } from '../ui/checkbox';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
@@ -27,7 +28,6 @@ export function PropertyCreateForm() {
     const { static_text, categories } = usePage().props;
 
     const [files, setFiles] = useState([]);
-    const [uploadedImages, setUploadedImages] = useState([]);
 
     const { data, setData, post, processing, errors } = useForm({
         title_tr: "", title_en: "", title_ru: "",
@@ -43,33 +43,8 @@ export function PropertyCreateForm() {
     });
 
     useEffect(() => {
-        setData('images', uploadedImages);
-    }, [uploadedImages, setData]);
-
-    const handleImageDelete = (imagePath) => {
-        console.log(imagePath)
-        setUploadedImages(prev => prev.filter(path => path !== imagePath));
-
-        fetch('/admin/delete-image', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            },
-            body: JSON.stringify({ path: imagePath }),
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    console.log('Image deleted successfully from storage.');
-                } else {
-                    console.error('Failed to delete image from storage');
-                }
-            })
-            .catch(error => {
-                console.error('Error deleting image from storage:', error);
-            });
-    };
+        console.log(data.images);
+    }, [data.images, setFiles, files]);
 
     function onSubmit(e) {
         e.preventDefault();
@@ -83,6 +58,14 @@ export function PropertyCreateForm() {
                     files={files}
                     onupdatefiles={setFiles}
                     allowMultiple={true}
+                    allowReorder={true}
+                    onreorderfiles={(newFileItems) => {
+                        const newOrder = newFileItems.map(item => item.serverId);
+                        setData(prev => ({
+                            ...prev,
+                            images: newOrder,
+                        }));
+                    }}
                     name="file"
                     server={{
                         process: {
@@ -94,15 +77,21 @@ export function PropertyCreateForm() {
                             },
                             onload: (res) => {
                                 const { path } = JSON.parse(res);
-                                const file = { source: path, options: { type: 'local' }, serverId: path };
-                                console.log(file)
-                                setUploadedImages(prev => [...prev, path]);
+                                setData(prev => ({
+                                    ...prev,
+                                    images: [...prev.images, path]
+                                }));
                                 return path;
                             },
                             onerror: (res) => console.error('Upload error:', res),
                         },
+                        revert: (uniqueFileId) => {
+                            setData(prev => ({
+                                ...prev,
+                                images: prev.images.filter(img => img !== uniqueFileId)
+                            }));
+                        },
                     }}
-                    // onremovefile={(file) => handleImageDelete(file.serverId)}
                     labelIdle='Drag & Drop your images or <span class="filepond--label-action">Browse</span>'
                 />
             </div>
@@ -246,3 +235,15 @@ export function PropertyCreateForm() {
         </>
     );
 }
+
+// axios.delete(`/admin/delete-image/${uniqueFileId}`, {
+//     // data: { path: uniqueFileId },
+//     headers: {
+//         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+//     },
+// })
+//     .then(() => load())
+//     .catch(err => {
+//         console.error('Error deleting image from storage:', err);
+//         error("Delete from store failed");
+//     });

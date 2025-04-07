@@ -41,7 +41,7 @@ Route::middleware(['auth', 'verified', AdminMiddleware::class])->group(function 
         });
 
         Route::post('/upload-image', [ImageUploadController::class, 'upload'])->name('image.upload');
-        Route::delete('/delete-image', [ImageUploadController::class, 'delete'])->name('admin.delete-image');
+        Route::delete('/delete-image/${}', [ImageUploadController::class, 'delete'])->name('admin.delete-image');
 
         Route::resource('categories', CategoryController::class);
         Route::resource('properties', PropertyController::class);

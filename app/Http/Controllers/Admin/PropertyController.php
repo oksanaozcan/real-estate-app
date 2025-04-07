@@ -28,7 +28,6 @@ class PropertyController extends Controller
 
     public function store(StorePropertyRequest $request, PropertyService $propertyService)
     {
-        Log::info($request);
         $validatedData = $request->validated();
 
         try {
