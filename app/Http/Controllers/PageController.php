@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PropertyResource;
 use App\Models\Category;
-use App\Models\Property;
 use App\Models\StaticText;
+use App\Services\PropertyService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -14,41 +14,30 @@ class PageController extends Controller
     public function welcome(Request $request)
     {
         $this->setLocale($request);
-
-        $search = StaticText::where('key', 'search')->first();
-
         return Inertia::render('Welcome');
     }
 
-    public function properties(Request $request)
+    public function properties(Request $request, PropertyService $propertyService)
     {
         $this->setLocale($request);
 
-        $properties = Property::with(['translations' => function ($query) {
-            $query->where('locale', $this->locale);
-        }])->get();
+        $properties = $propertyService->getAllProperties($this->locale);
 
         return Inertia::render('Properties', [
             'properties' => PropertyResource::collection($properties),
-        ]);
+            ],
+        );
+
     }
 
-    public function category(Request $request, $slug)
+    public function category(Request $request, $slug, PropertyService $propertyService)
     {
         $this->setLocale($request);
 
         $category = Category::where('key', $slug)->firstOrFail();
+        $categoryId = $category->id;
 
-        $properties = Property::where('category_id', $category->id)
-            ->with([
-                'translations' => function ($query) {
-                    $query->where('locale', $this->locale);
-                },
-                'images' => function ($query) {
-                    $query->limit(1); // only the first image
-                },
-            ])
-            ->get();
+        $properties = $propertyService->getPropertiesByCategory($this->locale, $categoryId);
 
         return Inertia::render('Category', [
             'properties' => PropertyResource::collection($properties),

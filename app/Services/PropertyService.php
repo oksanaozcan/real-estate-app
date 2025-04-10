@@ -20,6 +20,29 @@ class PropertyService
         ])->get();
     }
 
+    public function getPropertiesByCategory($locale, $categoryId)
+    {
+        return Property::with([
+            'translations' => fn ($query) => $query->where('locale', $locale),
+            'images' => fn ($query) => $query->limit(1),
+        ])
+            ->where('category_id', $categoryId)
+            ->where('is_published', true)
+            ->orderBy('created_at', 'desc')
+            ->paginate(12);
+    }
+
+    public function getAllProperties($locale)
+    {
+        return Property::with([
+            'translations' => fn ($query) => $query->where('locale', $locale),
+            'images' => fn ($query) => $query->limit(1),
+        ])
+            ->where('is_published', true)
+            ->orderBy('created_at', 'desc')
+            ->paginate(12);
+    }
+
     public function createProperty($validatedData)
     {
         DB::beginTransaction();
@@ -60,8 +83,8 @@ class PropertyService
                 $property->translations()->create($translation);
             }
 
-             // Save the images
-             if (isset($validatedData['images'])) {
+            // Save the images
+            if (isset($validatedData['images'])) {
                 foreach ($validatedData['images'] as $imagePath) {
                     PropertyImage::create([
                         'property_id' => $property->id,

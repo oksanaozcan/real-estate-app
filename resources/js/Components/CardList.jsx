@@ -6,8 +6,10 @@ import {
     CardHeader,
     CardTitle,
 } from "@/Components/ui/card"
+import { usePage } from '@inertiajs/react';
 
 export default function CardList({ properties }) {
+    const { static_text } = usePage().props;
     return (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {
@@ -21,14 +23,20 @@ export default function CardList({ properties }) {
                             />
                         )}
                         <CardHeader>
-                            <CardTitle>{p.price}</CardTitle>
+                            <CardTitle className='pb-2 text-xl'>
+                                {new Intl.NumberFormat('tr-TR', {
+                                    style: 'currency',
+                                    currency: 'TRY',
+                                    maximumFractionDigits: 0
+                                }).format(p.price)}
+                            </CardTitle>
                             <CardTitle>{p.translations.title}</CardTitle>
                             <CardDescription>{p.address}</CardDescription>
                         </CardHeader>
-                        <CardContent>
-                            <p>{p.rooms} + {p.salon}</p>
-                            <p>{p.bathrooms} bathrooms</p>
-                            <p>{p.square} m²</p>
+                        <CardContent className="flex items-center justify-between">
+                            <p><span className="text-sm">{static_text.rooms}:</span> {p.rooms} + {p.salon}</p>
+                            <p><span className="text-sm">{static_text.bathrooms}:</span> {p.bathrooms}</p>
+                            <p><span className="text-sm">m²:</span> {p.square}</p>
                         </CardContent>
                         <CardFooter>
                             <p>Card Footer</p>

@@ -4,9 +4,11 @@ import { Head } from '@inertiajs/react';
 import Footer from '@/Components/Footer';
 import { usePage } from '@inertiajs/react';
 import CardList from '@/Components/CardList';
+import MyPagination from '@/Components/MyPagination';
 
 export default function Category() {
-    const {properties} = usePage().props;
+    const { properties } = usePage().props;
+    const totalItems = properties.meta?.total || 0;
 
     return (
         <>
@@ -19,9 +21,17 @@ export default function Category() {
                     <div className="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                         <Header />
                         <main className="mt-6">
-                          <div>
-                           <CardList properties={properties.data}/>
-                          </div>
+                            <div>
+                                <div>
+                                    <figure className="mt-4 text-center">
+                                        <figcaption className="text-lg font-semibold">
+                                            Result: {totalItems}
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                                <CardList properties={properties.data} />
+                                <MyPagination links={properties.links} meta={properties.meta} />
+                            </div>
                         </main>
                         <Footer />
                     </div>

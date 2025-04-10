@@ -6,7 +6,7 @@ import { propertyColumns } from '@/utils/PropertyTableColumns';
 
 export default function Index() {
     const { properties } = usePage().props;
-   
+
     return (
         <AdminLayout>
             <Head title='Admin Panel' />
