@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import PrimaryButton from './PrimaryButton';
 import { Link } from '@inertiajs/react';
+import Cookies from 'js-cookie';
+import axios from "axios";
+import { router } from '@inertiajs/react';
 
 export default function CookieConsentModal() {
     const [visible, setVisible] = useState(false);
@@ -12,13 +15,19 @@ export default function CookieConsentModal() {
         }
     }, []);
 
-    const handleConsent = () => {
+    const handleConsent = async () => {
         localStorage.setItem('cookie_consent', 'true');
-        document.cookie = "cookie_consent=true; path=/; max-age=" + (60 * 60 * 24 * 365) + "; SameSite=Lax";
-        console.log('Current cookies:', document.cookie);
+        Cookies.set('cookie_consent', true, { expires: 60 });
 
-        // Reload the page to ensure backend sees the new cookie
-        window.location.reload();
+        const consent = Cookies.get('cookie_consent');
+        await axios.get(`/accept-cookie/${consent}`);
+
+        setVisible(false);
+
+        router.visit(page.url, {
+            preserveScroll: true,
+            preserveState: true,
+        });
     };
 
     if (!visible) return null;

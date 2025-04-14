@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Inertia\Inertia;
-use Illuminate\Support\Facades\Auth;
 use App\Types\RoleType;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
 
 class DataToolsController extends Controller
 {
     public function index(Request $request)
     {
-        Log::info(['datatoolscontroller request:', $request->all()]);
         if (Auth::check() && Auth::user()->hasRole(RoleType::ADMIN)) {
             return Inertia::render('DataTools');
         }
 
-        $visitorRole = session('visitor_role');
+        $consent = Cookie::get('cookie_consent');
 
-        Log::info(['session data: ', session()->all()]);
+        $visitorRole = session('visitor_role');
 
         if ($visitorRole === 'user' || $request->cookie('cookie_consent') === 'true') {
             return Inertia::render('DataTools');
@@ -28,4 +28,3 @@ class DataToolsController extends Controller
         abort(403, 'Unauthorized.');
     }
 }
-

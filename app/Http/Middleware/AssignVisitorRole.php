@@ -10,7 +10,7 @@ class AssignVisitorRole
 {
     public function handle(Request $request, Closure $next)
     {
-        Log::info(['assine role middleware:', $request->cookie('cookie_consent')]);
+        // Log::info(['assine role middleware:', $request->cookie('cookie_consent')]);
         if (! $request->user()) {
             $cookieConsent = $request->cookie('cookie_consent');
 
@@ -20,7 +20,7 @@ class AssignVisitorRole
             $role = $cookieConsent === 'true' ? 'user' : 'guest';
             session(['visitor_role' => $role]);
         }
-        Log::info(['all cookies' => $request->cookies->all()]);
+        // Log::info(['all cookies' => $request->cookies->all()]);
 
         return $next($request);
     }
