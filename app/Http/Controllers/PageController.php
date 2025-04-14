@@ -43,4 +43,10 @@ class PageController extends Controller
             'properties' => PropertyResource::collection($properties),
         ]);
     }
+
+    public function privacyPolicy (Request $request)
+    {
+        $this->setLocale($request);
+        return Inertia::render('CookiesPolicy');
+    }
 }
