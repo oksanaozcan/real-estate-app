@@ -14,7 +14,11 @@ export default function CookieConsentModal() {
 
     const handleConsent = () => {
         localStorage.setItem('cookie_consent', 'true');
-        setVisible(false);
+        document.cookie = "cookie_consent=true; path=/; max-age=" + (60 * 60 * 24 * 365) + "; SameSite=Lax";
+        console.log('Current cookies:', document.cookie);
+
+        // Reload the page to ensure backend sees the new cookie
+        window.location.reload();
     };
 
     if (!visible) return null;
