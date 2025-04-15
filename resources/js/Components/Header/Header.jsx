@@ -14,7 +14,7 @@ import {
 export default function Header({ }) {
     const [isOpen, setIsOpen] = useState(false);
 
-    const { auth, static_text } = usePage().props;
+    const { auth, static_text, flash } = usePage().props;
 
     return (
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -44,9 +44,13 @@ export default function Header({ }) {
                     </nav>
                 </div>
 
+                {flash.message && (
+                    <div class="alert">{flash.message}</div>
+                )}
+
                 <div className="flex justify-end sm:hidden">
                     <SheetTrigger>
-                        <Hamburger toggled={isOpen} toggle={setIsOpen}/>
+                        <Hamburger toggled={isOpen} toggle={setIsOpen} />
                     </SheetTrigger>
                 </div>
 

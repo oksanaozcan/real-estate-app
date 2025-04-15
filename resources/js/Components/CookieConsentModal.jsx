@@ -3,7 +3,6 @@ import PrimaryButton from './PrimaryButton';
 import { Link } from '@inertiajs/react';
 import Cookies from 'js-cookie';
 import axios from "axios";
-import { router } from '@inertiajs/react';
 
 export default function CookieConsentModal() {
     const [visible, setVisible] = useState(false);
@@ -17,17 +16,18 @@ export default function CookieConsentModal() {
 
     const handleConsent = async () => {
         localStorage.setItem('cookie_consent', 'true');
-        Cookies.set('cookie_consent', true, { expires: 60 });
+        Cookies.set('cookie_consent', true, {
+            expires: 365,
+            path: '/',
+            sameSite: 'Lax',
+        });
 
         const consent = Cookies.get('cookie_consent');
         await axios.get(`/accept-cookie/${consent}`);
 
         setVisible(false);
 
-        router.visit(page.url, {
-            preserveScroll: true,
-            preserveState: true,
-        });
+        window.location.reload();
     };
 
     if (!visible) return null;

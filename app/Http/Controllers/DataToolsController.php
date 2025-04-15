@@ -2,27 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PropertyResource;
+use App\Models\Property;
 use App\Types\RoleType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class DataToolsController extends Controller
 {
     public function index(Request $request)
     {
+        $favorites = session('user_favorites', []);
+
         if (Auth::check() && Auth::user()->hasRole(RoleType::ADMIN)) {
-            return Inertia::render('DataTools');
+            $properties = Property::whereIn('id', $favorites)
+                ->with(['translation', 'images'])
+                ->paginate(12);
+
+            return Inertia::render('DataTools', [
+                'properties' => PropertyResource::collection($properties),
+            ]);
         }
 
         $consent = Cookie::get('cookie_consent');
-
         $visitorRole = session('visitor_role');
 
-        if ($visitorRole === 'user' || $request->cookie('cookie_consent') === 'true') {
-            return Inertia::render('DataTools');
+        if ($visitorRole === 'user' || $consent === 'true') {
+            $properties = Property::whereIn('id', $favorites)
+                ->with(['translation', 'images'])
+                ->paginate(12);
+
+            return Inertia::render('DataTools', [
+                'properties' => PropertyResource::collection($properties),
+            ]);
         }
 
         abort(403, 'Unauthorized.');

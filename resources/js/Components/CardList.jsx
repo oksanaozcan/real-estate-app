@@ -7,6 +7,7 @@ import {
     CardTitle,
 } from "@/Components/ui/card"
 import { usePage } from '@inertiajs/react';
+import FavoriteButton from "./FavoriteButton";
 
 export default function CardList({ properties }) {
     const { static_text } = usePage().props;
@@ -39,7 +40,7 @@ export default function CardList({ properties }) {
                             <p><span className="text-sm">m²:</span> {p.square}</p>
                         </CardContent>
                         <CardFooter>
-                            <p>Card Footer</p>
+                            <p><FavoriteButton propertyId={p.id}/></p>
                         </CardFooter>
                     </Card>
                 ))

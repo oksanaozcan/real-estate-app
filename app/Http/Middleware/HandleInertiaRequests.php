@@ -2,13 +2,13 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
-use Inertia\Middleware;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Cookie;
-use App\Models\StaticText;
-use App\Models\Category;
 use App\Http\Resources\CategoryResource;
+use App\Models\Category;
+use App\Models\StaticText;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Inertia\Middleware;
+use Illuminate\Support\Arr;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -56,6 +56,9 @@ class HandleInertiaRequests extends Middleware
             'locale' => $locale,
             'static_text' => $staticText,
             'categories' => CategoryResource::collection($categories),
+            'flash' => [
+                'message' => fn () => $request->session()->get('message')
+            ],
         ];
     }
 }

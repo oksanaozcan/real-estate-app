@@ -12,7 +12,7 @@ class CookieConsentController extends Controller
 
         session(['cookie_consent' => $consent]);
 
-        $cookie = cookie('cookie_consent', $consent, 43200);
+        $cookie = cookie('cookie_consent', $consent, 60 * 24 * 365); //1 year in minutes
 
         return back()->withCookie($cookie);
     }

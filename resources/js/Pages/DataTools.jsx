@@ -2,8 +2,13 @@ import BackgroundSVG from '@/Components/BackgroungSVG';
 import Header from '@/Components/Header/Header';
 import { Head } from '@inertiajs/react';
 import Footer from '@/Components/Footer';
+import { usePage } from '@inertiajs/react';
+import CardList from '@/Components/CardList';
+import MyPagination from '@/Components/MyPagination';
 
 export default function DataTools() {
+    const { properties } = usePage().props;
+    const totalItems = properties.meta?.total || 0;
 
     return (
         <>
@@ -17,7 +22,15 @@ export default function DataTools() {
                         <Header />
                         <main className="mt-6">
                             <div>
-                               Data Tools Page
+                                <div>
+                                    <figure className="mt-4 text-center">
+                                        <figcaption className="text-lg font-semibold">
+                                            Result: {totalItems}
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                                <CardList properties={properties.data} />
+                                <MyPagination links={properties.links} meta={properties.meta} />
                             </div>
                         </main>
                         <Footer />
