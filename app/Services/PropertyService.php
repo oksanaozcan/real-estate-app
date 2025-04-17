@@ -43,6 +43,16 @@ class PropertyService
             ->paginate(12);
     }
 
+    public function getFavoriteProperties($locale, $favorites)
+    {
+        return Property::whereIn('id', $favorites)
+            ->with([
+                'translations' => fn ($query) => $query->where('locale', $locale),
+                'images' => fn ($query) => $query->limit(1),
+            ])
+            ->paginate(12);
+    }
+
     public function createProperty($validatedData)
     {
         DB::beginTransaction();

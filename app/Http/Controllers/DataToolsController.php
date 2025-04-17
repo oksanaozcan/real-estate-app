@@ -9,17 +9,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Inertia\Inertia;
+use App\Services\PropertyService;
 
 class DataToolsController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, PropertyService $propertyService)
     {
-        $favorites = session('user_favorites', []);
+        $this->setLocale($request);
+        $locale = $this->locale;
+
+        $favorites = session('favorite_properties', []);
 
         if (Auth::check() && Auth::user()->hasRole(RoleType::ADMIN)) {
-            $properties = Property::whereIn('id', $favorites)
-                ->with(['translation', 'images'])
-                ->paginate(12);
+            $properties = $propertyService->getFavoriteProperties($locale, $favorites);
 
             return Inertia::render('DataTools', [
                 'properties' => PropertyResource::collection($properties),
@@ -30,9 +32,7 @@ class DataToolsController extends Controller
         $visitorRole = session('visitor_role');
 
         if ($visitorRole === 'user' || $consent === 'true') {
-            $properties = Property::whereIn('id', $favorites)
-                ->with(['translation', 'images'])
-                ->paginate(12);
+            $properties = $propertyService->getFavoriteProperties($locale, $favorites);
 
             return Inertia::render('DataTools', [
                 'properties' => PropertyResource::collection($properties),
