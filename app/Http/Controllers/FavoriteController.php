@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
 
 class FavoriteController extends Controller
 {
@@ -12,8 +13,6 @@ class FavoriteController extends Controller
         $favorites = $request->input('favorites', []);
         session(['favorite_properties' => $favorites]);
 
-        return response()->json([
-            'status' => 'synced',
-        ]);
+        return redirect()->back()->with('message', __('Favorites updated!'));
     }
 }

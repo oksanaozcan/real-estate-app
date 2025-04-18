@@ -1,11 +1,16 @@
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
-import axios from 'axios';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
+import { router } from '@inertiajs/react'
+import { useToast } from "@/hooks/use-toast"
+import { usePage } from '@inertiajs/react'
 
 export default function FavoriteButton({ propertyId }) {
     const [isFavorite, setIsFavorite] = useState(false);
-    const [hasConsent, setHasConsent] = useState(true); // assume true by default
+    const [hasConsent, setHasConsent] = useState(true);
+
+    const { toast } = useToast();
+    const { flash } = usePage().props;
 
     useEffect(() => {
         const consent = localStorage.getItem('cookie_consent');
@@ -18,7 +23,7 @@ export default function FavoriteButton({ propertyId }) {
     }, [propertyId]);
 
     const toggleFavorite = async () => {
-        if (!hasConsent) return; // Block usage if no consent
+        if (!hasConsent) return;
 
         const currentFavorites = JSON.parse(Cookies.get('favorites') || '[]');
         let updatedFavorites;
@@ -37,13 +42,18 @@ export default function FavoriteButton({ propertyId }) {
 
         setIsFavorite(updatedFavorites.includes(propertyId));
 
-        try {
-            await axios.post('/favorite-properties/sync', {
-                favorites: updatedFavorites,
-            });
-        } catch (err) {
-            console.error('Failed to sync favorites:', err);
-        }
+        router.post('/favorite-properties/sync', {
+            favorites: updatedFavorites
+        }, {
+            preserveScroll: true,
+            preserveState: true,
+            only: ['flash'], // optional: limits what gets refreshed
+        });
+
+        toast({
+            title: "Success",
+            description: flash.message,
+        })
     };
 
     return (

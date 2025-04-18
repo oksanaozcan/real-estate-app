@@ -6,15 +6,16 @@ import { usePage } from '@inertiajs/react'
 import LanguageSwitcher from '@/Components/Header/LanguageSwitcher';
 import ThemeToggle from '@/Components/Header/ThemeToggle';
 import SearchSheet from './SearchSheet';
+
 import {
     Sheet,
     SheetTrigger,
 } from "@/Components/ui/sheet"
+import { Toaster } from "../ui/toaster";
 
 export default function Header({ }) {
     const [isOpen, setIsOpen] = useState(false);
-
-    const { auth, static_text, flash } = usePage().props;
+    const { auth, static_text } = usePage().props;
 
     return (
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -35,8 +36,8 @@ export default function Header({ }) {
                             <Link href={route('dashboard')} className="nav-link">{static_text.dashboard}</Link>
                         ) : (
                             <>
-                                <Link href={route('login')} className="nav-link">{static_text.log_in}</Link>
-                                <Link href={route('register')} className="nav-link">{static_text.register}</Link>
+                                {/* <Link href={route('login')} className="nav-link">{static_text.log_in}</Link>
+                                <Link href={route('register')} className="nav-link">{static_text.register}</Link> */}
                             </>
                         )}
                         <div className='nav-link'><LanguageSwitcher /></div>
@@ -44,9 +45,7 @@ export default function Header({ }) {
                     </nav>
                 </div>
 
-                {flash.message && (
-                    <div class="alert">{flash.message}</div>
-                )}
+                <Toaster />
 
                 <div className="flex justify-end sm:hidden">
                     <SheetTrigger>

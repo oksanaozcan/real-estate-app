@@ -35,7 +35,12 @@ export default function SearchSheet({ }) {
                 <div>
                     {
                         categories.data.map(category => (
-                            <ResponsiveNavLink key={category.id} className="flex items-center justify-start text-center">{category.translations.value} <ArrowIcon className="ml-4" size={14} /></ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                key={category.id}
+                                href={`/categories/${category.key}`}
+                                className="flex items-center justify-start text-center">
+                                    {category.translations.value} <ArrowIcon className="ml-4" size={14} />
+                            </ResponsiveNavLink>
                         ))
                     }
                 </div>
@@ -44,11 +49,10 @@ export default function SearchSheet({ }) {
                     <ResponsiveNavLink href={route('dashboard')}>{static_text.dashboard}</ResponsiveNavLink>
                 ) : (
                     <>
-                        <ResponsiveNavLink href={route('login')}>{static_text.log_in}</ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('register')}>{static_text.register}</ResponsiveNavLink>
+                        {/* <ResponsiveNavLink href={route('login')}>{static_text.log_in}</ResponsiveNavLink>
+                        <ResponsiveNavLink href={route('register')}>{static_text.register}</ResponsiveNavLink> */}
                     </>
                 )}
-                <Separator className="my-3" />
                 <PrimaryButton className="flex items-center justify-center my-4">
                     {static_text.contact}
                 </PrimaryButton>
