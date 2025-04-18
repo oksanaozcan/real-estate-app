@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\Filterable;
 
 class Property extends Model
 {
     use HasFactory;
+    use Filterable;
 
     protected $fillable = [
         'address', 'price', 'category_id', 'square', 'rooms', 'building_age', 'located_floor',
