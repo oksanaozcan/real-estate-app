@@ -5,10 +5,12 @@ import Footer from '@/Components/Footer';
 import { usePage } from '@inertiajs/react';
 import CardList from '@/Components/CardList';
 import MyPagination from '@/Components/MyPagination';
+import SortSelect from '@/Components/SortSelect';
 
 export default function Category() {
-    const { properties } = usePage().props;
+    const { properties, filters, category } = usePage().props;
     const totalItems = properties.meta?.total || 0;
+    const slug = category?.key;
 
     return (
         <>
@@ -29,6 +31,13 @@ export default function Category() {
                                         </figcaption>
                                     </figure>
                                 </div>
+
+                                <SortSelect
+                                    currentSort={filters.sort}
+                                    filters={{ ...filters, slug }}
+                                    routeName="category.show"
+                                />
+
                                 <CardList properties={properties.data} />
                                 <MyPagination links={properties.links} meta={properties.meta} />
                             </div>

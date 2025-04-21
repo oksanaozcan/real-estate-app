@@ -5,9 +5,10 @@ import Footer from '@/Components/Footer';
 import { usePage } from '@inertiajs/react';
 import CardList from '@/Components/CardList';
 import MyPagination from '@/Components/MyPagination';
+import SortSelect from '@/Components/SortSelect';
 
 export default function Properties() {
-    const { properties } = usePage().props;
+    const { properties, filters } = usePage().props;
     const totalItems = properties.meta?.total || 0;
 
     return (
@@ -29,6 +30,13 @@ export default function Properties() {
                                         </figcaption>
                                     </figure>
                                 </div>
+
+                                <SortSelect
+                                    currentSort={filters.sort}
+                                    filters={filters}
+                                    routeName="properties"
+                                />
+
                                 <CardList properties={properties.data} />
                                 <MyPagination links={properties.links} meta={properties.meta} />
                             </div>

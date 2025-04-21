@@ -21,6 +21,10 @@ class PageController extends Controller
     {
         $this->setLocale($request);
 
+        if (! isset($request['sort'])) {
+            $request['sort'] = 'date-desc-rank';
+        }
+
         $properties = $propertyService->getProperties($this->locale, $request->all());
 
         return Inertia::render('Properties', [
@@ -33,13 +37,22 @@ class PageController extends Controller
     {
         $this->setLocale($request);
 
-        $category = Category::where('key', $slug)->firstOrFail();
-        $categoryId = $category->id;
+        if (! isset($request['sort'])) {
+            $request['sort'] = 'date-desc-rank';
+        }
 
-        $properties = $propertyService->getPropertiesByCategory($this->locale, $categoryId);
+        $category = Category::where('key', $slug)->firstOrFail();
+
+        $properties = $propertyService->getPropertiesByCategory(
+            $this->locale,
+            $category->id,
+            $request->all()
+        );
 
         return Inertia::render('Category', [
             'properties' => PropertyResource::collection($properties),
+            'filters' => $request->only(['search', 'category_id', 'sort']),
+            'category' => $category,
         ]);
     }
 

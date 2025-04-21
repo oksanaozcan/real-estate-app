@@ -48,8 +48,29 @@ class PropertyFilter extends AbstractFilter
             case 'price-desc':
                 $builder->orderBy('price', 'desc');
                 break;
+            case 'date-asc':
+                $builder->orderBy('created_at', 'asc');
+                break;
             case 'date-desc-rank':
                 $builder->orderBy('created_at', 'desc');
+                break;
+            case 'square-asc':
+                $builder->orderBy('square', 'asc');
+                break;
+            case 'square-desc':
+                $builder->orderBy('square', 'desc');
+                break;
+            case 'rooms-asc':
+                $builder->orderBy('rooms', 'asc');
+                break;
+            case 'rooms-desc':
+                $builder->orderBy('rooms', 'desc');
+                break;
+            case 'floor-asc':
+                $builder->orderBy('located_floor', 'asc');
+                break;
+            case 'floor-desc':
+                $builder->orderBy('located_floor', 'desc');
                 break;
             default:
                 $builder->orderBy('created_at', 'desc');

@@ -21,16 +21,18 @@ class PropertyService
         ])->get();
     }
 
-    public function getPropertiesByCategory($locale, $categoryId)
+    public function getPropertiesByCategory($locale, $categoryId, array $queryParams = [])
     {
+        $filter = new PropertyFilter(array_merge($queryParams, ['category_id' => $categoryId]));
+
         return Property::with([
             'translations' => fn ($query) => $query->where('locale', $locale),
             'images' => fn ($query) => $query->limit(1),
         ])
-            ->where('category_id', $categoryId)
             ->where('is_published', true)
-            ->orderBy('created_at', 'desc')
-            ->paginate(12);
+            ->filter($filter)
+            ->paginate(12)
+            ->withQueryString();
     }
 
     public function getProperties($locale, array $queryParams = [])
@@ -43,7 +45,6 @@ class PropertyService
         ])
             ->where('is_published', true)
             ->filter($filter)
-            ->orderBy('created_at', 'desc')
             ->paginate(12)
             ->withQueryString();
     }
