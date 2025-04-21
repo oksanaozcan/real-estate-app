@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PropertyResource;
 use App\Models\Category;
-use App\Models\StaticText;
 use App\Services\PropertyService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -14,6 +13,7 @@ class PageController extends Controller
     public function welcome(Request $request)
     {
         $this->setLocale($request);
+
         return Inertia::render('Welcome');
     }
 
@@ -21,13 +21,12 @@ class PageController extends Controller
     {
         $this->setLocale($request);
 
-        $properties = $propertyService->getAllProperties($this->locale);
+        $properties = $propertyService->getProperties($this->locale, $request->all());
 
         return Inertia::render('Properties', [
             'properties' => PropertyResource::collection($properties),
-            ],
-        );
-
+            'filters' => $request->only(['search', 'category_id', 'sort']),
+        ]);
     }
 
     public function category(Request $request, $slug, PropertyService $propertyService)
@@ -44,9 +43,10 @@ class PageController extends Controller
         ]);
     }
 
-    public function privacyPolicy (Request $request)
+    public function privacyPolicy(Request $request)
     {
         $this->setLocale($request);
+
         return Inertia::render('CookiesPolicy');
     }
 }

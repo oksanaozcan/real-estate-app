@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Filters\PropertyFilter;
 use App\Models\Property;
 use App\Models\PropertyImage;
 use Illuminate\Support\Facades\DB;
@@ -32,15 +33,19 @@ class PropertyService
             ->paginate(12);
     }
 
-    public function getAllProperties($locale)
+    public function getProperties($locale, array $queryParams = [])
     {
+        $filter = new PropertyFilter($queryParams);
+
         return Property::with([
             'translations' => fn ($query) => $query->where('locale', $locale),
             'images' => fn ($query) => $query->limit(1),
         ])
             ->where('is_published', true)
+            ->filter($filter)
             ->orderBy('created_at', 'desc')
-            ->paginate(12);
+            ->paginate(12)
+            ->withQueryString();
     }
 
     public function getFavoriteProperties($locale, $favorites)

@@ -12,12 +12,20 @@ import LanguageSwitcher from '@/Components/Header/LanguageSwitcher';
 import ThemeToggle from '@/Components/Header/ThemeToggle';
 import { usePage } from '@inertiajs/react'
 import Icons from "@/lib/icons";
+import { useState } from 'react';
+import { router } from '@inertiajs/react';
 
 export default function SearchSheet({ }) {
     const { auth, static_text, categories } = usePage().props;
+    const [searchTerm, setSearchTerm] = useState('');
 
     const ArrowIcon = Icons["right_arrow"] || Icons["fallback"];
     const SearchIcon = Icons["search"] || Icons["fallback"];
+
+    const handleSearch = () => {
+        if (!searchTerm.trim()) return;
+        router.get('/properties', {search: searchTerm});
+    }
 
     return (
         <>
@@ -26,8 +34,16 @@ export default function SearchSheet({ }) {
                     <SheetTitle className="pb-4 text-center">{static_text.search}</SheetTitle>
                 </SheetHeader>
 
-                <TextInput className="w-full" placeholder={static_text.city_address_district} />
-                <PrimaryButton className="flex items-center justify-center my-4">
+                <TextInput
+                    value={searchTerm}
+                    onChange={e => setSearchTerm(e.target.value)}
+                    className="w-full"
+                    placeholder={static_text.city_address_district}
+                />
+                <PrimaryButton
+                    className="flex items-center justify-center my-4"
+                    onClick={handleSearch}
+                >
                     <SearchIcon className="mr-2" size={18} />
                     {static_text.search}
                 </PrimaryButton>
