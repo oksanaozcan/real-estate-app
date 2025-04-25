@@ -39,11 +39,11 @@ export function PropertyCreateForm() {
         credit_eligible: true, exchange_possibility: false,
         is_published: false,
         description_tr: "", description_en: "", description_ru: "",
-        images: [],
+        images: [], listing_type: "",
     });
 
     useEffect(() => {
-        console.log(data.images);
+        //
     }, [data.images, setFiles, files]);
 
     function onSubmit(e) {
@@ -105,7 +105,7 @@ export function PropertyCreateForm() {
                         },
                     }}
                     labelIdle='Drag & Drop your images or <span class="filepond--label-action">Browse</span>'
-                  
+
                 />
             </div>
             <form onSubmit={onSubmit} className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -160,6 +160,23 @@ export function PropertyCreateForm() {
                         </SelectContent>
                     </Select>
                     {errors.kitchen && <p className="text-sm text-red-500">{errors.kitchen}</p>}
+                </div>
+
+                {/* Listing Type Select TODO: static text for new field */}
+                <div>
+                    <Label>Listing type</Label>
+                    <Select value={data.listing_type} onValueChange={(value) => setData('listing_type', value)}>
+                        <SelectTrigger>
+                            <SelectValue placeholder="Listing type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                <SelectItem value='sale'>Sale</SelectItem>
+                                <SelectItem value='rent'>Rent</SelectItem>
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    {errors.listing_type && <p className="text-sm text-red-500">{errors.listing_type}</p>}
                 </div>
 
                 {/* Checkbox Group */}

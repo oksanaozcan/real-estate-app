@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Services\PropertyService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Log;
 
 class PageController extends Controller
 {
@@ -51,7 +52,7 @@ class PageController extends Controller
 
         return Inertia::render('Category', [
             'properties' => PropertyResource::collection($properties),
-            'filters' => $request->only(['search', 'category_id', 'sort']),
+            'filters' => $request->only(['search', 'category_id', 'sort', 'min_price', 'max_price']),
             'category' => $category,
         ]);
     }

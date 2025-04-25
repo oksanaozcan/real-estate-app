@@ -27,6 +27,7 @@ return new class extends Migration
             $table->boolean('balcony')->default(false);
             $table->boolean('furnished')->default(false);
             $table->enum('usage_status', ['empty', 'property_owner', 'tenant']);
+            $table->enum('listing_type', ['sale', 'rent']);
             $table->boolean('on_site')->default(false);
             $table->string('site_name')->nullable();
             $table->string('site_dues')->nullable();

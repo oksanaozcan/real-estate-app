@@ -80,6 +80,7 @@ class PropertyService
                 'balcony' => $validatedData['balcony'],
                 'furnished' => $validatedData['furnished'],
                 'usage_status' => $validatedData['usage_status'],
+                'listing_type' => $validatedData['listing_type'],
                 'on_site' => $validatedData['on_site'],
                 'site_name' => $validatedData['site_name'],
                 'site_dues' => $validatedData['site_dues'],

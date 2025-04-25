@@ -55,7 +55,7 @@ export default function SearchSheet({ }) {
                                 key={category.id}
                                 href={`/categories/${category.key}`}
                                 className="flex items-center justify-start text-center">
-                                    {category.translations.value} <ArrowIcon className="ml-4" size={14} />
+                                    {category.translations?.value || category.key} <ArrowIcon className="ml-4" size={14} />
                             </ResponsiveNavLink>
                         ))
                     }

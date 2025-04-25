@@ -16,7 +16,6 @@ class CategorySeeder extends Seeder
         Category::firstOrCreate(['key' => 'detached-house', 'icon' => 'home']);
         Category::firstOrCreate(['key' => 'apartment-flat', 'icon' => 'apartment']);
         Category::firstOrCreate(['key' => 'commercial', 'icon' => 'commercial']);
-        Category::firstOrCreate(['key' => 'land&lots', 'icon' => 'land']);
-        Category::firstOrCreate(['key' => 'rentals', 'icon' => 'rental']);
+        Category::firstOrCreate(['key' => 'land-lots', 'icon' => 'land']);
     }
 }

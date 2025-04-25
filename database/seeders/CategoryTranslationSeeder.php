@@ -29,15 +29,10 @@ class CategoryTranslationSeeder extends Seeder
                 'tr' => 'İş yeri',
                 'ru' => 'Коммерческая недвижимость'
             ],
-            'land&lots' => [
+            'land-lots' => [
                 'en' => 'Land & Lots',
                 'tr' => 'Arsa',
                 'ru' => 'Земельный участок'
-            ],
-            'rentals' => [
-                'en' => 'Rentals',
-                'tr' => 'Kiralık',
-                'ru' => 'Аренда'
             ],
         ];
 

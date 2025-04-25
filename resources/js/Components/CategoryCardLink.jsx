@@ -16,7 +16,7 @@ export default function CategoryCardLink({ category }) {
                 </div>
                 <div className="pt-3 sm:pt-5">
                     <h5 className="text-xl font-semibold text-black dark:text-white">
-                        {category.translations.value}
+                        {category.translations?.value || category.key}
                     </h5>
                 </div>
             </div>

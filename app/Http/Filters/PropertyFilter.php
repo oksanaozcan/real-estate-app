@@ -3,16 +3,17 @@
 namespace App\Http\Filters;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Log;
 
 class PropertyFilter extends AbstractFilter
 {
     use PropertyFilterTestingTrait;
 
     public const SEARCH = 'search';
-
     public const CATEGORY_ID = 'category_id';
-
     public const SORT = 'sort';
+    public const MIN_PRICE = 'min_price';
+    public const MAX_PRICE = 'max_price';
 
     protected function getCallbacks(): array
     {
@@ -20,6 +21,8 @@ class PropertyFilter extends AbstractFilter
             self::SEARCH => [$this, 'search'],
             self::CATEGORY_ID => [$this, 'categoryId'],
             self::SORT => [$this, 'sort'],
+            self::MIN_PRICE => [$this, 'min_price'],
+            self::MAX_PRICE => [$this, 'max_price'],
         ];
     }
 
@@ -37,6 +40,16 @@ class PropertyFilter extends AbstractFilter
     public function categoryId(Builder $builder, $value)
     {
         $builder->where('category_id', $value);
+    }
+
+    public function min_price(Builder $builder, $value)
+    {
+        $builder->where('price', '>=', $value);
+    }
+
+    public function max_price(Builder $builder, $value)
+    {
+        $builder->where('price', '<=', $value);
     }
 
     public function sort(Builder $builder, $value)
