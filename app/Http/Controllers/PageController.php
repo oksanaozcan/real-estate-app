@@ -52,7 +52,7 @@ class PageController extends Controller
 
         return Inertia::render('Category', [
             'properties' => PropertyResource::collection($properties),
-            'filters' => $request->only(['search', 'category_id', 'sort', 'min_price', 'max_price']),
+            'filters' => $request->only(['search', 'category_id', 'sort', 'min_price', 'max_price', 'listing_type', 'min_rooms', 'min_bath']),
             'category' => $category,
         ]);
     }

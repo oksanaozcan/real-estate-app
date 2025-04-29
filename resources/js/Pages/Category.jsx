@@ -13,13 +13,14 @@ import Icons from "@/lib/icons";
 import SecondaryButton from '@/Components/SecondaryButton';
 import FiltersSheet from '@/Components/Header/FiltersSheet';
 import { useState } from 'react';
+import { router } from '@inertiajs/react';
 
 export default function Category() {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
 
     const SearchIcon = Icons["search"] || Icons["fallback"];
 
-    const { properties, filters, category } = usePage().props;
+    const { properties, filters, category, static_text } = usePage().props;
     const totalItems = properties.meta?.total || 0;
     const slug = category?.key;
 
@@ -39,8 +40,28 @@ export default function Category() {
         filters.min_price,
         filters.max_price,
         filters.search,
-        // Add more later
+        filters.listing_type,
+        filters.min_rooms,
+        filters.min_bath,
     ].filter(Boolean).length;
+
+    const removeFilter = (key) => {
+        const updatedFilters = { ...filters };
+        delete updatedFilters[key];
+
+        router.get(route('category.show', { slug }), updatedFilters, {
+            preserveScroll: true,
+            preserveState: true,
+        });
+    };
+
+    const filterLabels = {
+        listing_type: (val) => val === 'sale' ? static_text.sale : static_text.rent,
+        min_price: (val) => `Min: ${val}`,
+        max_price: (val) => `Max: ${val}`,
+        min_rooms: (val) => `${static_text.rooms}: ${val}`,
+        min_bath: (val) => `${static_text.bathrooms}: ${val}`,
+    };
 
     return (
         <>
@@ -89,6 +110,25 @@ export default function Category() {
                                 </div>
 
                             </div>
+
+                            <div className="flex flex-wrap gap-2 mt-4">
+                                {Object.entries(filters).map(([key, value]) => {
+                                    if (!value || !filterLabels[key]) return null;
+
+                                    return (
+                                        <div key={key} className="flex items-center px-3 py-1 text-sm bg-gray-200 rounded-full">
+                                            {filterLabels[key](value)}
+                                            <button
+                                                className="ml-2 text-gray-600 hover:text-black"
+                                                onClick={() => removeFilter(key)}
+                                            >
+                                                ✕
+                                            </button>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+
                             <div>
                                 <div>
                                     <figure className="m-2 text-center">

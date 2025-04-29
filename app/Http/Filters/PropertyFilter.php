@@ -3,17 +3,26 @@
 namespace App\Http\Filters;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Log;
 
 class PropertyFilter extends AbstractFilter
 {
     use PropertyFilterTestingTrait;
 
     public const SEARCH = 'search';
+
     public const CATEGORY_ID = 'category_id';
+
     public const SORT = 'sort';
+
     public const MIN_PRICE = 'min_price';
+
     public const MAX_PRICE = 'max_price';
+
+    public const LISTING_TYPE = 'listing_type';
+
+    public const MIN_ROOMS = 'min_rooms';
+
+    public const MIN_BATH = 'min_bath';
 
     protected function getCallbacks(): array
     {
@@ -23,6 +32,9 @@ class PropertyFilter extends AbstractFilter
             self::SORT => [$this, 'sort'],
             self::MIN_PRICE => [$this, 'min_price'],
             self::MAX_PRICE => [$this, 'max_price'],
+            self::LISTING_TYPE => [$this, 'listingType'],
+            self::MIN_ROOMS => [$this, 'rooms'],
+            self::MIN_BATH => [$this, 'bathrooms'],
         ];
     }
 
@@ -50,6 +62,27 @@ class PropertyFilter extends AbstractFilter
     public function max_price(Builder $builder, $value)
     {
         $builder->where('price', '<=', $value);
+    }
+
+    public function listingType(Builder $builder, $value)
+    {
+        if (in_array($value, ['sale', 'rent'])) {
+            $builder->where('listing_type', $value);
+        }
+    }
+
+    public function rooms(Builder $builder, $value)
+    {
+        if (! empty($value)) {
+            $builder->where('rooms', '>=', $value);
+        }
+    }
+
+    public function bathrooms(Builder $builder, $value)
+    {
+        if (! empty($value)) {
+            $builder->where('bathrooms', '>=', $value);
+        }
     }
 
     public function sort(Builder $builder, $value)
