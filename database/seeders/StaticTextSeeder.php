@@ -68,6 +68,9 @@ class StaticTextSeeder extends Seeder
             'is_published' => 'Publich immediately',
             'salon' => 'Salon',
             'submit' => 'Submit',
+            'listing_type' => 'Listing Type',
+            'sale' => 'Sale',
+            'rent' => 'Rent',
         ];
 
         $ru_translations = [
@@ -125,6 +128,9 @@ class StaticTextSeeder extends Seeder
             'is_published' => 'Опубликовать сразу',
             'salon' => 'Салон',
             'submit' => 'Отправить',
+            'listing_type' => 'Тип объявления',
+            'sale' => 'Продажа',
+            'rent' => 'Аренда',
         ];
 
         $tr_translations = [
@@ -182,6 +188,9 @@ class StaticTextSeeder extends Seeder
             'is_published' => 'Hemen yayımla',
             'salon' => 'Salon',
             'submit' => 'Gönder',
+            'listing_type' => 'İlan Türü',
+            'sale' => 'Satılık',
+            'rent' => 'Kiralık',
         ];
 
         foreach ($texts as $key => $text) {

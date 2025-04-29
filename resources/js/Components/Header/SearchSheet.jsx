@@ -62,7 +62,10 @@ export default function SearchSheet({ }) {
                 </div>
                 <Separator className="my-3" />
                 {auth.user ? (
+                    <>
                     <ResponsiveNavLink href={route('dashboard')}>{static_text.dashboard}</ResponsiveNavLink>
+                    <ResponsiveNavLink href={route('admin.dashboard')}>Admin</ResponsiveNavLink>
+                    </>
                 ) : (
                     <>
                         {/* <ResponsiveNavLink href={route('login')}>{static_text.log_in}</ResponsiveNavLink>

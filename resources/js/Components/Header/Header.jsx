@@ -33,7 +33,10 @@ export default function Header({ }) {
                         </SheetTrigger>
 
                         {auth.user ? (
-                            <Link href={route('dashboard')} className="nav-link">{static_text.dashboard}</Link>
+                            <>
+                                <Link href={route('dashboard')} className="nav-link">{static_text.dashboard}</Link>
+                                <Link href={route('admin.dashboard')} className="nav-link">Admin</Link>
+                            </>
                         ) : (
                             <>
                                 {/* <Link href={route('login')} className="nav-link">{static_text.log_in}</Link>

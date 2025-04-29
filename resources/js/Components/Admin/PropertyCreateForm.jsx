@@ -162,17 +162,17 @@ export function PropertyCreateForm() {
                     {errors.kitchen && <p className="text-sm text-red-500">{errors.kitchen}</p>}
                 </div>
 
-                {/* Listing Type Select TODO: static text for new field */}
+                {/* Listing Type Select */}
                 <div>
-                    <Label>Listing type</Label>
+                    <Label>{static_text.listing_type}</Label>
                     <Select value={data.listing_type} onValueChange={(value) => setData('listing_type', value)}>
                         <SelectTrigger>
-                            <SelectValue placeholder="Listing type" />
+                            <SelectValue placeholder={static_text.listing_type} />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                <SelectItem value='sale'>Sale</SelectItem>
-                                <SelectItem value='rent'>Rent</SelectItem>
+                                <SelectItem value='sale'>{static_text.sale}</SelectItem>
+                                <SelectItem value='rent'>{static_text.rent}</SelectItem>
                             </SelectGroup>
                         </SelectContent>
                     </Select>
@@ -259,7 +259,7 @@ export function PropertyCreateForm() {
 
                 {/* Submit Button */}
                 <div className="flex justify-end col-span-1 md:col-span-2 lg:col-span-3">
-                    <Button type="submit" disabled={processing}>{processing ? 'Submitting...' : 'Submit'}</Button>
+                    <Button type="submit" disabled={processing}>{processing ? 'Submitting...' : static_text.submit}</Button>
                 </div>
             </form>
         </>
