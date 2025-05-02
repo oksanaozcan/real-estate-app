@@ -34,6 +34,8 @@ export default function FiltersSheet({ open, setOpen, filters, slug }) {
     const [listingType, setListingType] = useState('');
     const [minRooms, setMinRooms] = useState('');
     const [minBath, setMinBath] = useState('');
+    const [minSquare, setMinSquare] = useState('');
+    const [maxSquare, setMaxSquare] = useState('');
 
     const roomOptions = ['1', '2', '3', '4'];
     const bathOptions = ['1', '2', '3', '4'];
@@ -44,6 +46,8 @@ export default function FiltersSheet({ open, setOpen, filters, slug }) {
         setListingType(filters.listing_type || '');
         setMinRooms(filters.min_rooms || '');
         setMinBath(filters.min_bath || '');
+        setMinSquare(filters.min_square || '');
+        setMaxSquare(filters.max_square || '');
     }, [filters]);
 
     const handleApply = () => {
@@ -74,6 +78,19 @@ export default function FiltersSheet({ open, setOpen, filters, slug }) {
             params.min_bath = minBath;
         } else {
             delete params.min_bath;
+        }
+
+
+        if (minSquare !== '') {
+            params.min_square = minSquare;
+        } else {
+            delete params.min_square;
+        }
+
+        if (maxSquare !== '') {
+            params.max_square = maxSquare;
+        } else {
+            delete params.max_square;
         }
 
         router.get(route('category.show', { slug }), params, {
@@ -173,6 +190,34 @@ export default function FiltersSheet({ open, setOpen, filters, slug }) {
                         </button>
                     ))}
                 </div>
+            ),
+        },
+        {
+            key: 'min_square',
+            label: 'Min Square',
+            value: minSquare,
+            component: (
+                <TextInput
+                    type="number"
+                    value={minSquare}
+                    onChange={(e) => setMinSquare(e.target.value)}
+                    placeholder="No minimum"
+                    min={0}
+                />
+            ),
+        },
+        {
+            key: 'max_square',
+            label: 'Max Square',
+            value: maxSquare,
+            component: (
+                <TextInput
+                    type="number"
+                    value={maxSquare}
+                    onChange={(e) => setMaxSquare(e.target.value)}
+                    placeholder="No maximum"
+                    min={0}
+                />
             ),
         },
     ];

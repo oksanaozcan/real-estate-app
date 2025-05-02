@@ -43,6 +43,8 @@ export default function Category() {
         filters.listing_type,
         filters.min_rooms,
         filters.min_bath,
+        filters.min_square,
+        filters.max_square,
     ].filter(Boolean).length;
 
     const removeFilter = (key) => {
@@ -61,6 +63,8 @@ export default function Category() {
         max_price: (val) => `Max: ${val}`,
         min_rooms: (val) => `${static_text.rooms}: ${val}`,
         min_bath: (val) => `${static_text.bathrooms}: ${val}`,
+        min_square: (val) => `Min: ${val}`,
+        max_square: (val) => `Max: ${val}`,
     };
 
     return (

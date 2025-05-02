@@ -9,20 +9,15 @@ class PropertyFilter extends AbstractFilter
     use PropertyFilterTestingTrait;
 
     public const SEARCH = 'search';
-
     public const CATEGORY_ID = 'category_id';
-
     public const SORT = 'sort';
-
     public const MIN_PRICE = 'min_price';
-
     public const MAX_PRICE = 'max_price';
-
     public const LISTING_TYPE = 'listing_type';
-
     public const MIN_ROOMS = 'min_rooms';
-
     public const MIN_BATH = 'min_bath';
+    public const MIN_SQUARE = 'min_square';
+    public const MAX_SQUARE = 'max_square';
 
     protected function getCallbacks(): array
     {
@@ -35,6 +30,8 @@ class PropertyFilter extends AbstractFilter
             self::LISTING_TYPE => [$this, 'listingType'],
             self::MIN_ROOMS => [$this, 'rooms'],
             self::MIN_BATH => [$this, 'bathrooms'],
+            self::MIN_SQUARE => [$this, 'min_square'],
+            self::MAX_SQUARE => [$this, 'max_square'],
         ];
     }
 
@@ -83,6 +80,16 @@ class PropertyFilter extends AbstractFilter
         if (! empty($value)) {
             $builder->where('bathrooms', '>=', $value);
         }
+    }
+
+    public function min_square(Builder $builder, $value)
+    {
+        $builder->where('square', '>=', $value);
+    }
+
+    public function max_square(Builder $builder, $value)
+    {
+        $builder->where('square', '<=', $value);
     }
 
     public function sort(Builder $builder, $value)

@@ -33,7 +33,8 @@ class PropertyFactory extends Factory
             'site_dues' => $this->faker->optional()->randomDigitNotNull,
             'credit_eligible' => $this->faker->boolean,
             'exchange_possibility' => $this->faker->boolean,
-            'is_published' => $this->faker->boolean,
+            // 'is_published' => $this->faker->boolean,
+            'is_published' => true,
         ];
     }
 

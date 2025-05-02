@@ -1,6 +1,6 @@
 import BackgroundSVG from '@/Components/BackgroungSVG';
 import Header from '@/Components/Header/Header';
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import Footer from '@/Components/Footer';
 import { usePage } from '@inertiajs/react';
 import CategoryCardLink from '@/Components/CategoryCardLink';
@@ -33,13 +33,9 @@ export default function Welcome({ }) {
                                         {static_text.meta_descr}
 
                                         <div>
-                                            search input template with filters
+                                           
                                         </div>
-                                        <div>
-                                            <Link
-                                                className='inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-800 border border-transparent rounded-none hover:bg-gray-700 focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900'
-                                                href={route('properties')}>View All property</Link>
-                                        </div>
+
                                     </div>
 
                                 </div>
