@@ -1,12 +1,29 @@
 import BackgroundSVG from '@/Components/BackgroungSVG';
 import Header from '@/Components/Header/Header';
-import { Head } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import Footer from '@/Components/Footer';
 import { usePage } from '@inertiajs/react';
 import CategoryCardLink from '@/Components/CategoryCardLink';
+import PrimaryButton from '@/Components/PrimaryButton';
+import TextInput from '@/Components/TextInput';
+import Icons from "@/lib/icons";
 
 export default function Welcome({ }) {
+    const SearchIcon = Icons["search"] || Icons["fallback"];
+
     const { static_text, categories } = usePage().props;
+    const { data, setData, get } = useForm({
+        search: '',
+        listing_type: '',
+    })
+
+    const handleSearch = (e) => {
+        e.preventDefault();
+        get(route('properties'), {
+            preserveScroll: true,
+            preserveState: true,
+        });
+    }
 
     return (
         <>
@@ -33,7 +50,56 @@ export default function Welcome({ }) {
                                         {static_text.meta_descr}
 
                                         <div>
-                                           
+
+                                            <form onSubmit={handleSearch} className="mt-4">
+
+                                                <div className="flex my-0 space-x-2">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => setData('listing_type', 'sale')}
+                                                        className={`px-4 py-2 text-sm font-medium transition-all
+                                                            ${data.listing_type === 'sale'
+                                                                ? 'bg-cyan-600 text-white'
+                                                                : 'bg-white text-gray-700 border-0'}
+                                                            dark:${data.listing_type === 'sale'
+                                                                ? 'bg-cyan-600 text-white'
+                                                                : 'bg-zinc-800 text-gray-200 border-0'}
+                                                        `}
+                                                    >
+                                                        {static_text.sale}
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => setData('listing_type', 'rent')}
+                                                        className={`px-4 py-2 text-sm font-medium transition-all
+                                                            ${data.listing_type === 'rent'
+                                                                ? 'bg-cyan-600 text-white'
+                                                                : 'bg-white text-gray-700 border-0'}
+                                                            dark:${data.listing_type === 'rent'
+                                                                ? 'bg-cyan-600 text-white'
+                                                                : 'bg-zinc-800 text-gray-200 border-0'}
+                                                        `}
+                                                    >
+                                                        {static_text.rent}
+                                                    </button>
+                                                </div>
+
+                                                <TextInput
+                                                    value={data.search}
+                                                    onChange={(e) => setData('search', e.target.value)}
+                                                    className="w-full mt-0 text-black"
+                                                    placeholder={static_text.city_address_district}
+                                                />
+                                                <PrimaryButton
+                                                    className="flex items-center justify-center my-4"
+                                                    onClick={handleSearch}
+                                                >
+                                                    <SearchIcon className="mr-2" size={18} />
+                                                    {static_text.search}
+                                                </PrimaryButton>
+
+                                            </form>
+
                                         </div>
 
                                     </div>
@@ -47,7 +113,6 @@ export default function Welcome({ }) {
                                 )}
                             </div>
                         </main>
-
                         <Footer />
                     </div>
                 </div>

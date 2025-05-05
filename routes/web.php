@@ -21,6 +21,7 @@ Route::controller(PageController::class)->group(function () {
     Route::get('/', 'welcome')->name('home');
     Route::get('properties', 'properties')->name('properties');
     Route::get('categories/{slug}', 'category')->name('category.show');
+    Route::get('properties/{property}', 'showProperty')->name('property.show');
     Route::get('privacy-policy', 'privacyPolicy')->name('privacy.policy');
 })->middleware([AssignVisitorRole::class]);
 

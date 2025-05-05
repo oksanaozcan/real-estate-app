@@ -14,7 +14,7 @@ class Property extends Model
     protected $fillable = [
         'address', 'price', 'category_id', 'square', 'rooms', 'building_age', 'located_floor',
         'floors_number', 'bathrooms', 'kitchen', 'balcony', 'furnished', 'usage_status',
-        'on_site', 'site_name', 'site_dues', 'credit_eligible', 'exchange_possibility', 'is_published',
+        'on_site', 'site_name', 'site_dues', 'credit_eligible', 'exchange_possibility', 'is_published', 'listing_type',
     ];
 
     public function translations()

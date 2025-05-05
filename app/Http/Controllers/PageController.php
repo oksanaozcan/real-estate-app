@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PropertyResource;
+use App\Http\Resources\PropertyDetailResource;
 use App\Models\Category;
+use App\Models\Property;
 use App\Services\PropertyService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Log;
 
 class PageController extends Controller
 {
@@ -30,7 +31,7 @@ class PageController extends Controller
 
         return Inertia::render('Properties', [
             'properties' => PropertyResource::collection($properties),
-            'filters' => $request->only(['search', 'category_id', 'sort']),
+            'filters' => $request->only(['search', 'category_id', 'listing_type', 'sort']),
         ]);
     }
 
@@ -54,6 +55,22 @@ class PageController extends Controller
             'properties' => PropertyResource::collection($properties),
             'filters' => $request->only(['search', 'category_id', 'sort', 'min_price', 'max_price', 'listing_type', 'min_rooms', 'min_bath', 'min_square', 'max_square']),
             'category' => $category,
+        ]);
+    }
+
+    public function showProperty(Request $request, Property $property)
+    {
+        $this->setLocale($request);
+        $locale = $this->locale;
+
+        $fullProperty = $property->load([
+            'images',
+            'category.translations' => fn ($query) => $query->where('locale', $locale),
+            'translations' => fn ($query) => $query->where('locale', $locale),
+        ]);
+
+        return Inertia::render('Property', [
+            'property' => new PropertyDetailResource($fullProperty),
         ]);
     }
 
