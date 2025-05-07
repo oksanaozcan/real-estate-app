@@ -58,7 +58,7 @@ export default function FavoriteButton({ propertyId }) {
 
     return (
         <button onClick={toggleFavorite} disabled={!hasConsent}>
-            {isFavorite ? <FaHeart className="text-red-500" /> : <FaRegHeart />}
+            {isFavorite ? <FaHeart className="w-5 h-5 text-red-500" /> : <FaRegHeart className='w-5 h-5' />}
         </button>
     );
 }
