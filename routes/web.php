@@ -9,6 +9,7 @@ use App\Http\Controllers\DataToolsController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TranslationController;
+use App\Http\Controllers\PdfController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\AssignVisitorRole;
 use Illuminate\Support\Facades\Route;
@@ -16,6 +17,8 @@ use App\Http\Controllers\FavoriteController;
 
 Route::get('/lang/{locale}', [TranslationController::class, 'changeLanguage'])->name('language.change');
 Route::get('/accept-cookie/{consent}', [CookieConsentController::class, 'index'])->name('accept.cookie');
+
+Route::get('/properties/{property}/pdf', [PdfController::class, 'downloadPdf'])->name('properties.downloadPdf');
 
 Route::controller(PageController::class)->group(function () {
     Route::get('/', 'welcome')->name('home');

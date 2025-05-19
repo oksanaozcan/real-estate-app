@@ -33,7 +33,12 @@ export default function Property() {
                                 <div className="space-y-4 lg:col-span-5 lg:sticky lg:top-24">
                                     <div className='flex items-center justify-between py-2 lg:w-1/2'>
                                         <FavoriteButton propertyId={property.data.id} />
-                                        <FaRegFilePdf className='w-6 h-6' />
+                                        <a
+                                            href={route('properties.downloadPdf', property.data.id)}
+                                            className="flex items-center text-red-600 hover:underline"
+                                        >
+                                            <FaRegFilePdf className='w-6 h-6' />
+                                        </a>
                                         <FaRegShareSquare className='w-6 h-6' />
                                     </div>
                                     <PropertyInfo property={property} />

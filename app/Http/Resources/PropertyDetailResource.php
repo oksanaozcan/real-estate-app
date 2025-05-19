@@ -48,16 +48,6 @@ class PropertyDetailResource extends JsonResource
                     'url' => $img->url,
                 ])
             ),
-
-            // 📝 Reserved for future fields:
-            // 'video_url' => $this->video_url ?? null,
-            // 'floor_plan_pdf' => $this->floor_plan_pdf ?? null,
-            // 'virtual_tour_url' => $this->virtual_tour_url ?? null,
-            // 'agent' => $this->whenLoaded('agent', fn () => [
-            //     'name' => $this->agent->name,
-            //     'phone' => $this->agent->phone,
-            //     'email' => $this->agent->email,
-            // ]),
         ];
     }
 }
